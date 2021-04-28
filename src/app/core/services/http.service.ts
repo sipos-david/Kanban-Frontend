@@ -29,20 +29,9 @@ export class HttpService {
     };
   } */
 
-  private get httpOptions(): {
-    headers: HttpHeaders;
-  } {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.accessToken}`,
-      }),
-    };
-  }
-
-  /*private httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };*/
+  };
 
   /**
    *  Fetches the T type object from the given url. If it's avaliable from the cache, and not expired, uses that data.

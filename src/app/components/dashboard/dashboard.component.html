@@ -1,6 +1,14 @@
 <p>dashboard works!</p>
-<button (click)="onLogout()">Logout</button>
-<div *ngFor="let project of projects">
-  <p>{{ project.id }}</p>
-  <p>{{ project.name }}</p>
+<div *ngIf="isLoggedIn; else homePage">
+  <h1>Welcome, {{ name }}!</h1>
+  <button (click)="onLogout()">Logout</button>
+  <div *ngFor="let project of projects">
+    <p>{{ project.id }}</p>
+    <p>{{ project.name }}</p>
+  </div>
 </div>
+<ng-template #homePage
+  ><div>
+    <h1>Welcome</h1>
+  </div></ng-template
+>

@@ -7,10 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, HomeComponent],
+  declarations: [AppComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { authCodeFlowConfig } from '../auth.config';
@@ -9,24 +9,33 @@ import { authCodeFlowConfig } from '../auth.config';
 export class AuthService {
   constructor(private oauthService: OAuthService) {
     this.oauthService.configure(authCodeFlowConfig);
-    this.oauthService.loadDiscoveryDocumentAndLogin();
+    this.oauthService
+      .loadDiscoveryDocumentAndLogin()
+      .then((success) => this.userLoginEvent.emit(success));
 
     // this.oauthService.setupAutomaticSilentRefresh();
 
     // Automatically load user profile
     this.oauthService.events
       .pipe(filter((e) => e.type === 'token_received'))
-      .subscribe((_) => this.oauthService.loadUserProfile());
+      .subscribe((_) =>
+        this.oauthService
+          .loadUserProfile()
+          .then(() => this.userLoadProfileEvent.emit())
+      );
   }
+
+  public userLoginEvent = new EventEmitter<boolean>();
+  public userLoadProfileEvent = new EventEmitter<void>();
 
   public init(): void {}
 
-  public get userName(): string | null {
+  public get userName(): string | undefined {
     const claims: any = this.oauthService.getIdentityClaims();
     if (!claims) {
-      return null;
+      return undefined;
     }
-    return claims['given_name'];
+    return claims.preferred_username;
   }
 
   public get idToken(): string {
@@ -45,22 +54,13 @@ export class AuthService {
    * Log's out the user in the IdentityServer4 server, then redirect's to app landing page
    */
   logoutUser(): void {
-    this.oauthService.revokeTokenAndLogout();
+    this.oauthService.logOut();
   }
 
-  isUserLoggedIn(): Promise<boolean> {
-    return new Promise<boolean>(() => this.oauthService.hasValidAccessToken());
-  }
-
-  /**
-   * Tries to log in the user, using IdentityServer4. Redirects to IdentityServer4 server.
-   *
-   * After the login attempt redirects to the dashboard.
-   *
-   * @returns a promise contaning the log in success
-   */
-  loginUser(): Promise<boolean> {
-    this.oauthService.initLoginFlow();
-    return this.isUserLoggedIn();
+  public get isUserLoggedIn(): boolean {
+    return (
+      this.oauthService.hasValidAccessToken() &&
+      this.oauthService.hasValidIdToken()
+    );
   }
 }

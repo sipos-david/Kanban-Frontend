@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,10 +9,11 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'table:id',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
