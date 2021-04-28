@@ -3,7 +3,25 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  app: {
+    url: {
+      dashboard: 'http://localhost:4200/dashboard',
+    },
+  },
+  api: {
+    v1: {
+      cache: {
+        project: {
+          all: 'v1-project-all',
+          id: 'v1-project-id-',
+        },
+      },
+      url: {
+        project: 'http://localhost:5000/api/v1.0/project',
+      },
+    },
+  },
 };
 
 /*
