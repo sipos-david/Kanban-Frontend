@@ -3,10 +3,16 @@ import { environment } from 'src/environments/environment';
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://localhost:5001',
+  issuer: 'https://localhost:5443',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: environment.app.url.dashboard,
+
+  loginUrl: environment.app.url.dashboard,
+
+  logoutUrl: environment.app.url.dashboard,
+
+  postLogoutRedirectUri: environment.app.url.dashboard,
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',

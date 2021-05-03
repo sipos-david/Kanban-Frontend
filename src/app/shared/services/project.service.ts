@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
 import { Project } from '../models/project.model';
@@ -8,7 +10,10 @@ import { Project } from '../models/project.model';
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private cacheService: CacheService
+  ) {}
 
   private name = 'ProjectService';
 
@@ -21,5 +26,26 @@ export class ProjectService {
       environment.api.v1.url.project,
       1
     );
+  }
+
+  public addProject(project: Project): Observable<Project> {
+    return this.httpService
+      .post<Project>(
+        this.name,
+        'AddProject()',
+        'added all project',
+        environment.api.v1.url.project,
+        project
+      )
+      .pipe(
+        tap((p) => {
+          this.cacheService.setItem<Project>(
+            environment.api.v1.cache.project.id + p.id,
+            p,
+            1
+          );
+          this.cacheService.removeItem(environment.api.v1.cache.project.all);
+        })
+      );
   }
 }

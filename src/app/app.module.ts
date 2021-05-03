@@ -7,15 +7,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProjectAddDialogComponent } from './components/project-add-dialog/project-add-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent, DashboardComponent, ProjectAddDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatChipsModule,
+    MatButtonModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:5000/api'],

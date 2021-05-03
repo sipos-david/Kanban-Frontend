@@ -1,7 +1,16 @@
-<p>dashboard works!</p>
 <div *ngIf="isLoggedIn; else homePage">
-  <h1>Welcome, {{ name }}!</h1>
+  <h1>Welcome, {{ user.name }}!</h1>
   <button (click)="onLogout()">Logout</button>
+  <button (click)="onAddProject()">Add project!</button>
+  <h2>Your Projects</h2>
+  <h3 *ngIf="userProjects.length === 0">You have 0 projects.</h3>
+  <ng-template>
+    <div *ngFor="let project of userProjects">
+      <p>{{ project.id }}</p>
+      <p>{{ project.name }}</p>
+    </div></ng-template
+  >
+  <h2>Projects</h2>
   <div *ngFor="let project of projects">
     <p>{{ project.id }}</p>
     <p>{{ project.name }}</p>

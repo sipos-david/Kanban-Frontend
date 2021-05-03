@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Add new project</h1>
+<div mat-dialog-content>
+  <div *ngIf="data.project; else noInput" class="form">
+    <mat-form-field>
+      <mat-label>New project's name</mat-label>
+      <input matInput [(ngModel)]="data.project.name" />
+    </mat-form-field>
+    <mat-form-field class="chip-list" *ngIf="data.users.length > 0">
+      <mat-label>Added users</mat-label>
+      <mat-chip-list #chipList aria-label="User selection">
+        <mat-chip
+          *ngFor="let user of data.project.users"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(user)"
+        >
+          {{ user.name }}
+          <div matChipRemove *ngIf="removable">x</div>
+        </mat-chip>
+        <input
+          placeholder="New user..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+  <ng-template #noInput> ERROR: project wasn't provided </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button mat-button color="accent" [mat-dialog-close]="data" cdkFocusInitial>
+    Create
+  </button>
+</div>

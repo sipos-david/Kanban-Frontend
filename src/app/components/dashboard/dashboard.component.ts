@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Project } from 'src/app/shared/models/project.model';
+import { User } from 'src/app/shared/models/user.model';
 import { ProjectService } from 'src/app/shared/services/project.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ProjectAddDialogComponent } from '../project-add-dialog/project-add-dialog.component';
+import { ProjectAddDialogData } from '../project-add-dialog/project-add-dialog.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,27 +18,75 @@ export class DashboardComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
-  name: string | undefined;
+  user: User = { id: '', name: '' };
   projects: Project[] = [];
+  userProjects: Project[] = [];
   isLoggedIn = false;
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn;
-    this.name = this.authService.userName;
-    this.authService.userLoginEvent.subscribe(
-      (success) => (this.isLoggedIn = success)
-    );
-    this.authService.userLoadProfileEvent.subscribe(
-      () => (this.name = this.authService.userName)
-    );
+    if (this.isLoggedIn) {
+      this.getData();
+    }
 
-    this.projectService.getProjects().subscribe((p) => (this.projects = p));
+    this.authService.userLoginEvent.subscribe((success) => {
+      this.isLoggedIn = success;
+      if (success) {
+        this.getProjects();
+      }
+    });
+    this.authService.userLoadProfileEvent.subscribe(() => this.getUser());
   }
 
   public onLogout(): void {
     this.authService.logoutUser();
+  }
+
+  private getData(): void {
+    this.getUser();
+    this.getProjects();
+  }
+
+  private getProjects(): void {
+    this.projectService.getProjects().subscribe((p) => {
+      this.projects = p;
+      const id = this.authService.idToken;
+      this.userProjects = this.projects.filter((project) =>
+        project.users.find((user) => user.id === id)
+      );
+    });
+  }
+
+  private getUser(): void {
+    const id = this.authService.idToken;
+    const name = this.authService.userName;
+    if (id && name) {
+      this.user = { id, name };
+    }
+  }
+
+  public onAddProject(): void {
+    const data = new ProjectAddDialogData();
+    data.project = { id: '', name: '', users: [], tables: [] };
+    this.userService.getUsers().subscribe((users) => {
+      data.users = users;
+
+      console.log(data);
+
+      const dialogRef = this.dialog.open(ProjectAddDialogComponent, {
+        data,
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        this.projectService
+          .addProject(result.project)
+          .subscribe(() => this.getProjects());
+      });
+    });
   }
 }

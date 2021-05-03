@@ -16,9 +16,14 @@ export const environment = {
           all: 'v1-project-all',
           id: 'v1-project-id-',
         },
+        user: {
+          all: 'v1-user-all',
+          id: 'v1-user-id-',
+        },
       },
       url: {
-        project: 'http://localhost:5000/api/v1.0/project',
+        project: 'http://localhost:5000/api/v1.0/projects',
+        user: 'http://localhost:5000/api/v1.0/users',
       },
     },
   },
