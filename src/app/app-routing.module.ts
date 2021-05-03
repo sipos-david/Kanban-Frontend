@@ -10,12 +10,12 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'project:id',
+    path: 'projects/:id',
     component: ProjectComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'table:id',
+    path: 'table/:id',
     component: DashboardComponent,
     canActivate: [AuthGuard],
   },
