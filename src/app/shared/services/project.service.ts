@@ -28,6 +28,17 @@ export class ProjectService {
     );
   }
 
+  public getProject(id: number): Observable<Project> {
+    return this.httpService.get<Project>(
+      this.name,
+      'getProject()',
+      'fetchted project with id:' + id,
+      environment.api.v1.cache.project.id + id,
+      environment.api.v1.url.project + '/' + id,
+      1
+    );
+  }
+
   public addProject(project: Project): Observable<Project> {
     return this.httpService
       .post<Project>(
