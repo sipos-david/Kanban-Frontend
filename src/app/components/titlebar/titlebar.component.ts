@@ -15,23 +15,26 @@ export class TitlebarComponent implements AfterViewInit {
 
   @ViewChild(MatSlideToggle) toggle: MatSlideToggle | undefined;
 
+  private darkClassName = 'darkMode';
+
   constructor(
     private overlay: OverlayContainer,
     private settingsService: SettingsService,
     private authService: AuthService
   ) {
     this.isDarkMode = this.settingsService.darkMode;
+    if (this.isDarkMode) {
+      this.overlay.getContainerElement().classList.add(this.darkClassName);
+    }
   }
 
   ngAfterViewInit(): void {
     this.toggle?.change.subscribe(() => {
-      const darkClassName = 'darkMode';
       this.settingsService.darkMode = this.isDarkMode;
-
       if (this.isDarkMode) {
-        this.overlay.getContainerElement().classList.add(darkClassName);
+        this.overlay.getContainerElement().classList.add(this.darkClassName);
       } else {
-        this.overlay.getContainerElement().classList.remove(darkClassName);
+        this.overlay.getContainerElement().classList.remove(this.darkClassName);
       }
     });
   }
