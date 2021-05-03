@@ -43,8 +43,8 @@ export class DashboardComponent implements OnInit {
     this.authService.userLoadProfileEvent.subscribe(() => this.getData());
   }
 
-  public onLogout(): void {
-    this.authService.logoutUser();
+  public viewProject(project: Project): void {
+    this.router.navigate(['projects', project.id]);
   }
 
   private getData(): void {

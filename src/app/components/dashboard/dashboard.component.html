@@ -1,25 +1,44 @@
-<div *ngIf="isLoggedIn; else homePage">
+<div *ngIf="isLoggedIn; else homePage" class="wrapper">
   <h1>Welcome, {{ user.name }}!</h1>
-  <button (click)="onLogout()">Logout</button>
-  <button (click)="onAddProject()">Add project!</button>
-  <h2>Your Projects</h2>
-  <h3 *ngIf="userProjects.length === 0; else showUserProjects">
-    You have 0 projects.
-  </h3>
-  <ng-template #showUserProjects>
-    <div *ngFor="let project of userProjects">
-      <p>{{ project.id }}</p>
-      <p>{{ project.name }}</p>
-    </div></ng-template
-  >
-  <h2>Projects</h2>
-  <div *ngFor="let project of projects">
-    <p>{{ project.id }}</p>
-    <p>{{ project.name }}</p>
+  <h2>Your projects:</h2>
+  <div class="project-list">
+    <button
+      mat-stroked-button
+      color="primary"
+      routerLink="project/"
+      *ngFor="let project of userProjects"
+      (click)="viewProject(project)"
+      class="project-item mat-elevation-z2"
+    >
+      {{ project.name }}
+    </button>
+    <button
+      class="project-item mat-elevation-z2"
+      mat-stroked-button
+      color="accent"
+      (click)="onAddProject()"
+    >
+      Add project
+    </button>
+  </div>
+
+  <h2>Avaliable projects:</h2>
+  <div class="project-list">
+    <button
+      mat-stroked-button
+      color="primary"
+      routerLink="project/"
+      *ngFor="let project of projects"
+      (click)="viewProject(project)"
+      class="project-item mat-elevation-z2"
+    >
+      {{ project.name }}
+    </button>
   </div>
 </div>
-<ng-template #homePage
+<ng-template #homePage class="wrapper"
   ><div>
     <h1>Welcome</h1>
   </div></ng-template
 >
+<div class="container-fluid"></div>
