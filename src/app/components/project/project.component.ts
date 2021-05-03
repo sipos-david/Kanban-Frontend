@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../dialogs/add-user-dialog/add-user-dialog.component';
 import { AddUserDialogData } from '../dialogs/add-user-dialog/add-user-dialog.model';
 import { UserService } from 'src/app/shared/services/user.service';
+import { SimpleAddDialogData } from '../dialogs/simple-add-dialog/simple-add-dialog-data.model';
+import { SimpleAddDialogComponent } from '../dialogs/simple-add-dialog/simple-add-dialog.component';
 
 @Component({
   selector: 'app-project',
@@ -56,12 +58,27 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
       if (result) {
         console.log('delete project');
-        // TODO: implement project delete
+        // TODO: project delete
       }
     });
   }
 
-  public onAddTable(): void {}
+  public onAddTable(): void {
+    const data = new SimpleAddDialogData();
+    data.title = 'Add table';
+    data.subtitle = 'Please enter the new name: ';
+    data.placeholder = 'New table';
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result) {
+        console.log('add table: ' + result.text);
+        // TODO: project add table
+      }
+    });
+  }
 
   public onRemoveUser(user: User): void {
     const data = new SimpleDialogData();
@@ -79,7 +96,7 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
       if (result) {
         console.log('delete user: ' + user.name);
-        // TODO: implement user delete from project
+        // TODO: user delete from project
       }
     });
   }

@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TitlebarComponent } from './components/titlebar/titlebar.component';
 import { SimpleDialogComponent } from './components/dialogs/simple-dialog/simple-dialog.component';
 import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add-user-dialog.component';
+import { SimpleAddDialogComponent } from './components/dialogs/simple-add-dialog/simple-add-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add
     TitlebarComponent,
     SimpleDialogComponent,
     AddUserDialogComponent,
+    SimpleAddDialogComponent,
   ],
   imports: [
     BrowserModule,

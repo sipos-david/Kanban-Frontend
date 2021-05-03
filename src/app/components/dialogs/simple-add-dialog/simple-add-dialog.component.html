@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <h3>{{ data.subtitle }}</h3>
+  <mat-form-field>
+    <mat-label>{{ data.placeholder }}</mat-label>
+    <input matInput [(ngModel)]="data.text" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+  <button mat-button color="accent" [mat-dialog-close]="data">ADD</button>
+</div>
