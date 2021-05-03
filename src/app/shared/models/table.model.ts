@@ -1,7 +1,8 @@
 import { Column } from './column.model';
 
 export interface Table {
-  id: string;
+  id: number;
+  projectid: number;
   name: string;
   columns: Column[];
 }

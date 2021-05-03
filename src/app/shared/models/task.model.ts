@@ -1,7 +1,8 @@
 import { User } from './user.model';
 
 export interface Task {
-  id: string;
+  id: number;
+  columnid: number;
   name: string;
   description: string;
   comments: Comment[];
