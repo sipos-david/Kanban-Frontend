@@ -12,6 +12,7 @@ import { AddUserDialogData } from '../dialogs/add-user-dialog/add-user-dialog.mo
 import { UserService } from 'src/app/shared/services/user.service';
 import { SimpleAddDialogData } from '../dialogs/simple-add-dialog/simple-add-dialog-data.model';
 import { SimpleAddDialogComponent } from '../dialogs/simple-add-dialog/simple-add-dialog.component';
+import { TableService } from 'src/app/shared/services/table.service';
 
 @Component({
   selector: 'app-project',
@@ -23,6 +24,7 @@ export class ProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
+    private tableService: TableService,
     private userService: UserService,
     public dialog: MatDialog
   ) {}
@@ -73,9 +75,15 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
-      if (result) {
-        console.log('add table: ' + result.text);
-        // TODO: project add table
+      if (result && result.text && result.text !== '' && this.project != null) {
+        this.tableService
+          .addTable(this.project, {
+            id: undefined,
+            projectid: undefined,
+            name: result.text,
+            columns: [],
+          })
+          .subscribe(() => this.getProject());
       }
     });
   }

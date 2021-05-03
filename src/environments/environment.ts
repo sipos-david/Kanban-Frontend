@@ -16,6 +16,9 @@ export const environment = {
           all: 'v1-project-all',
           id: 'v1-project-id-',
         },
+        table: {
+          id: 'v1-table-id-',
+        },
         user: {
           all: 'v1-user-all',
           id: 'v1-user-id-',
@@ -24,6 +27,7 @@ export const environment = {
       url: {
         project: 'http://localhost:5000/api/v1.0/projects',
         user: 'http://localhost:5000/api/v1.0/users',
+        table: 'http://localhost:5000/api/v1.0/tables',
       },
     },
   },
