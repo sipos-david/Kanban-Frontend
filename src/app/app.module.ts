@@ -8,7 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ProjectAddDialogComponent } from './components/project-add-dialog/project-add-dialog.component';
+import { ProjectAddDialogComponent } from './components/dialogs/project-add-dialog/project-add-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -19,8 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { TitlebarComponent } from './components/titlebar/titlebar.component';
-import { SimpleDialogComponent } from './components/simple-dialog/simple-dialog.component';
-import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
+import { SimpleDialogComponent } from './components/dialogs/simple-dialog/simple-dialog.component';
+import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [

@@ -4,11 +4,11 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { Project } from 'src/app/shared/models/project.model';
 import { Table } from 'src/app/shared/models/table.model';
 import { User } from 'src/app/shared/models/user.model';
-import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
-import { SimpleDialogData } from '../simple-dialog/simple-dialog.model';
+import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.component';
+import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
-import { AddUserDialogData } from '../add-user-dialog/add-user-dialog.model';
+import { AddUserDialogComponent } from '../dialogs/add-user-dialog/add-user-dialog.component';
+import { AddUserDialogData } from '../dialogs/add-user-dialog/add-user-dialog.model';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({

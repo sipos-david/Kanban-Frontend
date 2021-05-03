@@ -6,8 +6,8 @@ import { Project } from 'src/app/shared/models/project.model';
 import { User } from 'src/app/shared/models/user.model';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { ProjectAddDialogComponent } from '../project-add-dialog/project-add-dialog.component';
-import { ProjectAddDialogData } from '../project-add-dialog/project-add-dialog.model';
+import { ProjectAddDialogComponent } from '../dialogs/project-add-dialog/project-add-dialog.component';
+import { ProjectAddDialogData } from '../dialogs/project-add-dialog/project-add-dialog.model';
 
 @Component({
   selector: 'app-dashboard',
