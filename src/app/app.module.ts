@@ -22,6 +22,7 @@ import { TitlebarComponent } from './components/titlebar/titlebar.component';
 import { SimpleDialogComponent } from './components/dialogs/simple-dialog/simple-dialog.component';
 import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add-user-dialog.component';
 import { SimpleAddDialogComponent } from './components/dialogs/simple-add-dialog/simple-add-dialog.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SimpleAddDialogComponent } from './components/dialogs/simple-add-dialog
     SimpleDialogComponent,
     AddUserDialogComponent,
     SimpleAddDialogComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

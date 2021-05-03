@@ -79,7 +79,7 @@ export class ProjectComponent implements OnInit {
         this.tableService
           .addTable(this.project, {
             id: undefined,
-            projectid: undefined,
+            projectId: undefined,
             name: result.text,
             columns: [],
           })

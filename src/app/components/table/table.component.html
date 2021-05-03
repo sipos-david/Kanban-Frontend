@@ -1,0 +1,39 @@
+<div class="container">
+  <div *ngIf="table" class="wrapper">
+    <h1 *ngIf="table.name">{{ table.name }}</h1>
+    <div class="project-list">
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngFor="let column of table.columns"
+        class="project-item mat-elevation-z2"
+      >
+        {{ column.name }}
+      </button>
+      <button
+        class="project-item mat-elevation-z2"
+        mat-stroked-button
+        color="accent"
+        (click)="onAddColumn()"
+      >
+        Add column
+      </button>
+    </div>
+  </div>
+  <button
+    class="delete-button"
+    mat-button
+    color="warn"
+    (click)="onDeleteTable()"
+  >
+    DELETE TABLE
+  </button>
+  <button
+    class="go-back-button"
+    mat-button
+    color="primary"
+    (click)="onGoBack()"
+  >
+    GO BACK
+  </button>
+</div>

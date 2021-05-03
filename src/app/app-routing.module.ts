@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProjectComponent } from './components/project/project.component';
+import { TableComponent } from './components/table/table.component';
 import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
@@ -15,8 +16,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'table/:id',
-    component: DashboardComponent,
+    path: 'tables/:id',
+    component: TableComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

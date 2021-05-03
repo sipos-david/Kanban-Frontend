@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.wrapper {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.project-item {
+  width: 96px;
+  height: 96px;
+  margin: 1%;
+  border-radius: 16px;
+}
+
+.delete-button {
+  margin-top: 2%;
+  font-size: small;
+}
+
+.go-back-button {
+  margin-top: 8px;
+  font-size: large;
+}
