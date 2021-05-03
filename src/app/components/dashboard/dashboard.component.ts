@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
         this.getProjects();
       }
     });
-    this.authService.userLoadProfileEvent.subscribe(() => this.getUser());
+    this.authService.userLoadProfileEvent.subscribe(() => this.getData());
   }
 
   public onLogout(): void {
