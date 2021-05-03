@@ -3,8 +3,10 @@
   <button (click)="onLogout()">Logout</button>
   <button (click)="onAddProject()">Add project!</button>
   <h2>Your Projects</h2>
-  <h3 *ngIf="userProjects.length === 0">You have 0 projects.</h3>
-  <ng-template>
+  <h3 *ngIf="userProjects.length === 0; else showUserProjects">
+    You have 0 projects.
+  </h3>
+  <ng-template #showUserProjects>
     <div *ngFor="let project of userProjects">
       <p>{{ project.id }}</p>
       <p>{{ project.name }}</p>

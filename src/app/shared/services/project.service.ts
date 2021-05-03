@@ -38,14 +38,9 @@ export class ProjectService {
         project
       )
       .pipe(
-        tap((p) => {
-          this.cacheService.setItem<Project>(
-            environment.api.v1.cache.project.id + p.id,
-            p,
-            1
-          );
-          this.cacheService.removeItem(environment.api.v1.cache.project.all);
-        })
+        tap(() =>
+          this.cacheService.removeItem(environment.api.v1.cache.project.all)
+        )
       );
   }
 }

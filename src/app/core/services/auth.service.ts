@@ -38,12 +38,12 @@ export class AuthService {
     return claims.preferred_username;
   }
 
-  public get idToken(): string {
-    return this.oauthService.getIdToken();
-  }
-
-  public get accessToken(): string {
-    return this.oauthService.getAccessToken();
+  public get userId(): string | undefined {
+    const claims: any = this.oauthService.getIdentityClaims();
+    if (!claims) {
+      return undefined;
+    }
+    return claims.sub;
   }
 
   public refresh(): void {

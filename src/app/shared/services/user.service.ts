@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
-import { Project } from '../models/project.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ export class UserService {
 
   private name = 'UserService';
 
-  public getUsers(): Observable<Project[]> {
-    return this.httpService.get<Project[]>(
+  public getUsers(): Observable<User[]> {
+    return this.httpService.get<User[]>(
       this.name,
       'getUsers()',
       'fetchted all users',

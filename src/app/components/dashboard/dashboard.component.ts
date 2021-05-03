@@ -55,15 +55,14 @@ export class DashboardComponent implements OnInit {
   private getProjects(): void {
     this.projectService.getProjects().subscribe((p) => {
       this.projects = p;
-      const id = this.authService.idToken;
       this.userProjects = this.projects.filter((project) =>
-        project.users.find((user) => user.id === id)
+        project.users.find((u) => u.id === this.user.id)
       );
     });
   }
 
   private getUser(): void {
-    const id = this.authService.idToken;
+    const id = this.authService.userId;
     const name = this.authService.userName;
     if (id && name) {
       this.user = { id, name };
@@ -72,20 +71,19 @@ export class DashboardComponent implements OnInit {
 
   public onAddProject(): void {
     const data = new ProjectAddDialogData();
-    data.project = { id: '', name: '', users: [], tables: [] };
+    data.project = { id: undefined, name: '', users: [this.user], tables: [] };
     this.userService.getUsers().subscribe((users) => {
       data.users = users;
-
-      console.log(data);
-
       const dialogRef = this.dialog.open(ProjectAddDialogComponent, {
         data,
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        this.projectService
-          .addProject(result.project)
-          .subscribe(() => this.getProjects());
+        if (result) {
+          this.projectService
+            .addProject(result.project)
+            .subscribe(() => this.getProjects());
+        }
       });
     });
   }
