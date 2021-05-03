@@ -1,0 +1,10 @@
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.mat-dialog-actions {
+  display: flex;
+  justify-content: space-around;
+}

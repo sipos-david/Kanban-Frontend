@@ -1,1 +1,61 @@
-<p>project works!</p>
+<div class="container">
+  <div *ngIf="project" class="wrapper">
+    <h1 *ngIf="project.name">{{ project.name }}</h1>
+    <h2>User's on this project:</h2>
+    <div class="project-list">
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngFor="let user of project.users"
+        (click)="onRemoveUser(user)"
+        class="project-item mat-elevation-z2"
+      >
+        {{ user.name }}
+      </button>
+      <button
+        class="project-item mat-elevation-z2"
+        mat-stroked-button
+        color="accent"
+        (click)="onAddUser()"
+      >
+        Add user
+      </button>
+    </div>
+    <h2>Tables in this project:</h2>
+    <div class="project-list">
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngFor="let table of project.tables"
+        (click)="viewTable(table)"
+        class="project-item mat-elevation-z2"
+      >
+        {{ table.name }}
+      </button>
+      <button
+        class="project-item mat-elevation-z2"
+        mat-stroked-button
+        color="accent"
+        (click)="onAddTable()"
+      >
+        Add table
+      </button>
+    </div>
+  </div>
+  <button
+    class="delete-button"
+    mat-button
+    color="warn"
+    (click)="onDeleteProject()"
+  >
+    DELETE PROJECT
+  </button>
+  <button
+    class="go-back-button"
+    mat-button
+    color="primary"
+    (click)="onGoBack()"
+  >
+    GO BACK
+  </button>
+</div>

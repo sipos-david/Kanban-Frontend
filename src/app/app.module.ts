@@ -19,6 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { TitlebarComponent } from './components/titlebar/titlebar.component';
+import { SimpleDialogComponent } from './components/simple-dialog/simple-dialog.component';
+import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { TitlebarComponent } from './components/titlebar/titlebar.component';
     ProjectAddDialogComponent,
     ProjectComponent,
     TitlebarComponent,
+    SimpleDialogComponent,
+    AddUserDialogComponent,
   ],
   imports: [
     BrowserModule,
