@@ -15,9 +15,19 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProjectComponent } from './components/project/project.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { TitlebarComponent } from './components/titlebar/titlebar.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, ProjectAddDialogComponent, ProjectComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    ProjectAddDialogComponent,
+    ProjectComponent,
+    TitlebarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,6 +40,9 @@ import { ProjectComponent } from './components/project/project.component';
     MatInputModule,
     MatChipsModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatIconModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:5000/api'],

@@ -2,10 +2,6 @@
   flex: 1 1 auto;
 }
 
-.mat-app-background {
-  height: 100%;
-}
-
 mat-icon {
   margin: 8px;
 }
