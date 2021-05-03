@@ -6,7 +6,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class SettingsService {
   constructor() {}
 
-  private isDarkMode = false;
+  private isDarkMode = true;
 
   public themeChangeEvent = new EventEmitter<boolean>();
 
