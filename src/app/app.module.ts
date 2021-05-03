@@ -23,6 +23,7 @@ import { SimpleDialogComponent } from './components/dialogs/simple-dialog/simple
 import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add-user-dialog.component';
 import { SimpleAddDialogComponent } from './components/dialogs/simple-add-dialog/simple-add-dialog.component';
 import { TableComponent } from './components/table/table.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TableComponent } from './components/table/table.component';
     MatToolbarModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:5000/api'],
