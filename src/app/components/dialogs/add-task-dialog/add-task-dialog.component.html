@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Add task</h1>
+<div class="content" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>New task's name</mat-label>
+    <input matInput [(ngModel)]="data.name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>New task's description</mat-label>
+    <input tpye="text" matInput [(ngModel)]="data.description" />
+  </mat-form-field>
+
+  <div *ngIf="data.users.length > 0; else noInput" class="form">
+    <mat-form-field class="chip-list" *ngIf="data.users.length > 0">
+      <mat-label>Added users</mat-label>
+      <mat-chip-list #chipList aria-label="User selection">
+        <mat-chip
+          *ngFor="let user of data.addedUsers"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(user)"
+        >
+          {{ user.name }}
+          <div matChipRemove *ngIf="removable">x</div>
+        </mat-chip>
+        <input
+          placeholder="New user..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+  <ng-template #noInput> ERROR: users wasn't provided </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+  <button mat-button color="accent" [mat-dialog-close]="data" cdkFocusInitial>
+    ADD
+  </button>
+</div>

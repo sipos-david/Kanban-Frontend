@@ -12,6 +12,8 @@ import { Task } from 'src/app/shared/models/task.model';
 import { ColumnService } from 'src/app/shared/services/column.service';
 import { TableService } from 'src/app/shared/services/table.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AddTaskDialogData } from '../dialogs/add-task-dialog/add-task-dialog-data.model';
+import { AddTaskDialogComponent } from '../dialogs/add-task-dialog/add-task-dialog.component';
 import { SimpleAddDialogData } from '../dialogs/simple-add-dialog/simple-add-dialog-data.model';
 import { SimpleAddDialogComponent } from '../dialogs/simple-add-dialog/simple-add-dialog.component';
 
@@ -93,27 +95,32 @@ export class TableComponent implements OnInit {
   }
 
   onAddTask(column: Column) {
-    const data = new SimpleAddDialogData();
-    data.title = 'Add task';
-    data.subtitle = 'Please enter the task name: ';
-    data.placeholder = 'New task';
-    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
-      data,
-    });
+    const data = new AddTaskDialogData();
+    this.userService.getUsers().subscribe((users) => {
+      data.users = users;
+      const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+        data,
+      });
 
-    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
-      if (result && result.text && result.text !== '' && this.table != null) {
-        // TODO: add task on server
-        column.tasks.push({
-          id: undefined,
-          columnid: column.id,
-          name: result.text,
-          number: column.tasks.length,
-          description: 'test',
-          comments: [],
-          users: [],
-        });
-      }
+      dialogRef.afterClosed().subscribe((result: AddTaskDialogData) => {
+        if (
+          result &&
+          result.name &&
+          result.description !== '' &&
+          this.table != null
+        ) {
+          // TODO: add task on server
+          column.tasks.push({
+            id: undefined,
+            columnid: column.id,
+            name: result.name,
+            number: column.tasks.length,
+            description: result.description,
+            comments: [],
+            users: [],
+          });
+        }
+      });
     });
   }
 }

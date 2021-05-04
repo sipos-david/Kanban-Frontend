@@ -28,6 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskComponent } from './components/task/task.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { AddTaskDialogComponent } from './components/dialogs/add-task-dialog/add-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDividerModule } from '@angular/material/divider';
     SimpleAddDialogComponent,
     TableComponent,
     TaskComponent,
+    AddTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
