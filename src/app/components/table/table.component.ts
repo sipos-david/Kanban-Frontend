@@ -6,6 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { Column } from 'src/app/shared/models/column.model';
 import { Table } from 'src/app/shared/models/table.model';
 import { Task } from 'src/app/shared/models/task.model';
@@ -29,10 +30,21 @@ export class TableComponent implements OnInit {
     private tableService: TableService,
     private userService: UserService,
     private columnService: ColumnService,
+    private settingsService: SettingsService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.settingsService.themeChangeEvent.subscribe((isDarkMode) => {
+      if (isDarkMode === true) {
+        this.dragPreviewClasses = 'darkMode';
+      } else {
+        this.dragPreviewClasses = '';
+      }
+    });
+  }
 
   public table: Table | undefined;
+
+  public dragPreviewClasses = '';
 
   ngOnInit(): void {
     this.getTable();
@@ -78,6 +90,7 @@ export class TableComponent implements OnInit {
   }
 
   public drop(event: CdkDragDrop<Task[]>): void {
+    // TODO: save task move on server
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -117,7 +130,7 @@ export class TableComponent implements OnInit {
             number: column.tasks.length,
             description: result.description,
             comments: [],
-            users: [],
+            users: result.addedUsers,
           });
         }
       });

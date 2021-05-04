@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mat-app-background">
   <div *ngIf="table; else loadingPage" class="wrapper">
     <h1 *ngIf="table.name">{{ table.name }}</h1>
     <div cdkDropListGroup class="column-list">
@@ -10,10 +10,10 @@
           class="task-list"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="custom-placeholder" *cdkDragPlaceholder></div>
           <div
             cdkDrag
             [cdkDragData]="task"
+            [cdkDragPreviewClass]="dragPreviewClasses"
             class="task-container"
             *ngFor="let task of column.tasks"
           >
