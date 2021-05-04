@@ -10,7 +10,12 @@
   <p>{{ data.description }}</p>
   <mat-divider></mat-divider>
   <mat-chip-list aria-label="user selection">
-    <mat-chip *ngFor="let user of data.users">{{ user.name }}</mat-chip>
+    <mat-chip *ngFor="let user of data.users"
+      >{{ user.name }}
+      <mat-icon color="warn" (click)="onRemoveUser(user)"
+        >clear</mat-icon
+      ></mat-chip
+    >
     <button
       class="mat-elevation-z2 add-button"
       mat-stroked-button
