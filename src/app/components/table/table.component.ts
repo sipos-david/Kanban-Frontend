@@ -17,6 +17,8 @@ import { AddTaskDialogData } from '../dialogs/add-task-dialog/add-task-dialog-da
 import { AddTaskDialogComponent } from '../dialogs/add-task-dialog/add-task-dialog.component';
 import { SimpleAddDialogData } from '../dialogs/simple-add-dialog/simple-add-dialog-data.model';
 import { SimpleAddDialogComponent } from '../dialogs/simple-add-dialog/simple-add-dialog.component';
+import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.component';
+import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog.model';
 
 @Component({
   selector: 'app-table',
@@ -68,7 +70,56 @@ export class TableComponent implements OnInit {
     this.router.navigate(['projects', this.table?.projectId]);
   }
 
-  public onDeleteTable(): void {}
+  public onDeleteTable(): void {
+    const data = new SimpleDialogData();
+    data.title = 'Delete table';
+    data.subtitle =
+      'Are you sure you want to delete "' + this.table?.name + '" ?';
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
+      if (result) {
+        console.log('delete table');
+        // TODO: table delete
+      }
+    });
+  }
+
+  public onEditColumn(column: Column) {
+    const data = new SimpleAddDialogData();
+    data.title = 'Edit column';
+    data.subtitle = "Please enter column's new name:";
+    data.placeholder = 'New name';
+    data.text = column.name;
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result && result.text && result.text !== '' && this.table != null) {
+        column.name = result.text;
+        // TODO: edit column on server
+      }
+    });
+  }
+
+  public onRemoveColumn(column: Column) {
+    const data = new SimpleDialogData();
+    data.title = 'Delete column';
+    data.subtitle = 'Are you sure you want to delete "' + column?.name + '" ?';
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
+      if (result) {
+        console.log('delete column');
+        // TODO: column delete
+      }
+    });
+  }
 
   public onAddColumn(): void {
     const data = new SimpleAddDialogData();

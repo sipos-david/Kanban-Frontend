@@ -3,7 +3,29 @@
     <h1 *ngIf="table.name">{{ table.name }}</h1>
     <div cdkDropListGroup class="column-list">
       <div class="column-container" *ngFor="let column of table.columns">
-        <h2>{{ column.name }}</h2>
+        <mat-expansion-panel class="column-header mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ column.name }} </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="buttons">
+            <button
+              class="mat-elevation-z2 edit-buttons"
+              mat-stroked-button
+              color="warn"
+              (click)="onRemoveColumn(column)"
+            >
+              Delete <mat-icon color="warn">clear</mat-icon>
+            </button>
+            <button
+              class="mat-elevation-z2 edit-button edit-buttons"
+              mat-stroked-button
+              color="primary"
+              (click)="onEditColumn(column)"
+            >
+              Edit <mat-icon color="primary">create</mat-icon>
+            </button>
+          </div>
+        </mat-expansion-panel>
         <div
           cdkDropList
           [cdkDropListData]="column.tasks"
