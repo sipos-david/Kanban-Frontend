@@ -1,0 +1,5 @@
+.task-box {
+  width: 256px;
+  border: solid 1px #ccc;
+  border-radius: 16px;
+}

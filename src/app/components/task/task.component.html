@@ -1,0 +1,11 @@
+<mat-expansion-panel
+  hideToggle
+  *ngIf="data"
+  class="task-box mat-elevation-z2 mat-app-background"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title class="task-header"> {{ data.name }} </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <p>{{ data.description }}</p>
+</mat-expansion-panel>

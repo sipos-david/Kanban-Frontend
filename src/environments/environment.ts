@@ -19,6 +19,9 @@ export const environment = {
         table: {
           id: 'v1-table-id-',
         },
+        column: {
+          id: 'v1-column-id-',
+        },
         user: {
           all: 'v1-user-all',
           id: 'v1-user-id-',
@@ -28,6 +31,7 @@ export const environment = {
         project: 'http://localhost:5000/api/v1.0/projects',
         user: 'http://localhost:5000/api/v1.0/users',
         table: 'http://localhost:5000/api/v1.0/tables',
+        column: 'http://localhost:5000/api/v1.0/columns',
       },
     },
   },

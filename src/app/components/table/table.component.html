@@ -1,17 +1,36 @@
 <div class="container">
   <div *ngIf="table; else loadingPage" class="wrapper">
     <h1 *ngIf="table.name">{{ table.name }}</h1>
-    <div class="project-list">
+    <div cdkDropListGroup class="column-list">
+      <div class="column-container" *ngFor="let column of table.columns">
+        <h2>{{ column.name }}</h2>
+        <div
+          cdkDropList
+          [cdkDropListData]="column.tasks"
+          class="task-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="custom-placeholder" *cdkDragPlaceholder></div>
+          <div
+            cdkDrag
+            [cdkDragData]="task"
+            class="task-container"
+            *ngFor="let task of column.tasks"
+          >
+            <app-task [data]="task"></app-task>
+          </div>
+          <button
+            class="add-column-button mat-elevation-z2"
+            mat-stroked-button
+            color="accent"
+            (click)="onAddTask(column)"
+          >
+            Add task
+          </button>
+        </div>
+      </div>
       <button
-        mat-stroked-button
-        color="primary"
-        *ngFor="let column of table.columns"
-        class="project-item mat-elevation-z2"
-      >
-        {{ column.name }}
-      </button>
-      <button
-        class="project-item mat-elevation-z2"
+        class="add-column-button mat-elevation-z2"
         mat-stroked-button
         color="accent"
         (click)="onAddColumn()"

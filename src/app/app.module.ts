@@ -24,6 +24,10 @@ import { AddUserDialogComponent } from './components/dialogs/add-user-dialog/add
 import { SimpleAddDialogComponent } from './components/dialogs/simple-add-dialog/simple-add-dialog.component';
 import { TableComponent } from './components/table/table.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TaskComponent } from './components/task/task.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AddUserDialogComponent,
     SimpleAddDialogComponent,
     TableComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSlideToggleModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    DragDropModule,
+    MatExpansionModule,
+    MatDividerModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:5000/api'],
