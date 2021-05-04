@@ -33,18 +33,23 @@ export class TableComponent implements OnInit {
     private settingsService: SettingsService,
     public dialog: MatDialog
   ) {
-    this.settingsService.themeChangeEvent.subscribe((isDarkMode) => {
-      if (isDarkMode === true) {
-        this.dragPreviewClasses = 'darkMode';
-      } else {
-        this.dragPreviewClasses = '';
-      }
-    });
+    this.settingsService.themeChangeEvent.subscribe((isDarkMode) =>
+      this.setDarkMode(isDarkMode)
+    );
+    this.setDarkMode(this.settingsService.darkMode);
   }
 
   public table: Table | undefined;
 
   public dragPreviewClasses = '';
+
+  private setDarkMode(isDarkMode: boolean): void {
+    if (isDarkMode === true) {
+      this.dragPreviewClasses = 'darkMode';
+    } else {
+      this.dragPreviewClasses = '';
+    }
+  }
 
   ngOnInit(): void {
     this.getTable();
