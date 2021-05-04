@@ -1,6 +1,14 @@
 <div class="container">
   <div *ngIf="project; else loadingPage" class="wrapper">
-    <h1 *ngIf="project.name">{{ project.name }}</h1>
+    <h1 *ngIf="project.name">
+      {{ project.name
+      }}<mat-icon
+        class="project-name-edit"
+        (click)="onEditProjectName()"
+        color="primary"
+        >create</mat-icon
+      >
+    </h1>
     <h2>User's on this project:</h2>
     <div class="project-list">
       <button

@@ -47,3 +47,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.project-name-edit {
+  margin-left: 16px;
+}

@@ -65,6 +65,24 @@ export class ProjectComponent implements OnInit {
     });
   }
 
+  public onEditProjectName(): void {
+    const data = new SimpleAddDialogData();
+    data.title = 'Edit project name';
+    data.subtitle = 'Please enter the new name: ';
+    data.placeholder = 'New name...';
+    data.text = this.project?.name;
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result && result.text && result.text !== '' && this.project != null) {
+        this.project.name = result.text;
+        // TODO: edit project name on server
+      }
+    });
+  }
+
   public onAddTable(): void {
     const data = new SimpleAddDialogData();
     data.title = 'Add table';
