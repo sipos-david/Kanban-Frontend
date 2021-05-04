@@ -1,8 +1,10 @@
 import { User } from './user.model';
 
 export interface Comment {
-  id: number;
-  taskid: number;
+  id: number | undefined;
+  taskId: number | undefined;
   text: string;
+  date: Date | undefined;
+  editedDate: Date | undefined;
   author: User;
 }

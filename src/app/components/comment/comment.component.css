@@ -1,0 +1,23 @@
+h3 {
+  margin-bottom: 2px;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  border-radius: 16px;
+  height: 36px;
+}
+
+.edit-button {
+  margin: 4px;
+}

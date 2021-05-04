@@ -1,0 +1,44 @@
+<div *ngIf="data" class="content">
+  <mat-expansion-panel class="width-full mat-elevation-z0">
+    <mat-expansion-panel-header>
+      <mat-panel-title *ngIf="data.text.length > 6; else fullText"
+        >{{ data.text.substring(0, 6) }}...</mat-panel-title
+      >
+      <ng-template #fullText
+        ><mat-panel-title>{{ data.text }}</mat-panel-title></ng-template
+      >
+    </mat-expansion-panel-header>
+    <mat-divider></mat-divider>
+    <p *ngIf="data.text.length > 6">{{ data.text }}</p>
+    <h3>Author: {{ data.author.name }}</h3>
+    <div *ngIf="data.editedDate; else creationDate">
+      <h4>Edited:</h4>
+      <h5>{{ data.editedDate }}</h5>
+    </div>
+    <ng-template #creationDate>
+      <h5 *ngIf="data.date">{{ data.date }}</h5>
+    </ng-template>
+    <div *ngIf="data.editedDate">
+      <h4>Creation date:</h4>
+      <h5 *ngIf="data.date">{{ data.date }}</h5>
+    </div>
+    <div class="buttons">
+      <button
+        class="mat-elevation-z2"
+        mat-stroked-button
+        color="warn"
+        (click)="onDeleteComment()"
+      >
+        Delete
+      </button>
+      <button
+        class="mat-elevation-z2 edit-button"
+        mat-stroked-button
+        color="primary"
+        (click)="onEditComment()"
+      >
+        Edit
+      </button>
+    </div>
+  </mat-expansion-panel>
+</div>

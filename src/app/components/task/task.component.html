@@ -8,4 +8,39 @@
   </mat-expansion-panel-header>
   <mat-divider></mat-divider>
   <p>{{ data.description }}</p>
+  <mat-divider></mat-divider>
+  <mat-chip-list aria-label="user selection">
+    <mat-chip *ngFor="let user of data.users">{{ user.name }}</mat-chip>
+    <button
+      class="mat-elevation-z2 add-button"
+      mat-stroked-button
+      color="accent"
+      (click)="onAddUser()"
+    >
+      Add user
+    </button>
+  </mat-chip-list>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel class="width-full mat-elevation-z0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Comments </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-divider></mat-divider>
+    <div class="comments width-full">
+      <app-comment
+        [data]="comment"
+        *ngFor="let comment of data.comments"
+        class="width-full"
+      ></app-comment>
+      <button
+        class="mat-elevation-z2 add-button"
+        mat-stroked-button
+        color="accent"
+        (click)="onAddComment()"
+      >
+        Add comment
+      </button>
+    </div>
+  </mat-expansion-panel>
 </mat-expansion-panel>
