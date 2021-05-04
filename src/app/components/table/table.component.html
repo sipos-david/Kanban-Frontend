@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="table" class="wrapper">
+  <div *ngIf="table; else loadingPage" class="wrapper">
     <h1 *ngIf="table.name">{{ table.name }}</h1>
     <div class="project-list">
       <button
@@ -19,15 +19,16 @@
         Add column
       </button>
     </div>
+
+    <button
+      class="delete-button"
+      mat-button
+      color="warn"
+      (click)="onDeleteTable()"
+    >
+      DELETE TABLE
+    </button>
   </div>
-  <button
-    class="delete-button"
-    mat-button
-    color="warn"
-    (click)="onDeleteTable()"
-  >
-    DELETE TABLE
-  </button>
   <button
     class="go-back-button"
     mat-button
@@ -36,4 +37,8 @@
   >
     GO BACK
   </button>
+  <ng-template #loadingPage class="wrapper"
+    ><div class="loading-page">
+      <mat-spinner color="accent"></mat-spinner></div
+  ></ng-template>
 </div>

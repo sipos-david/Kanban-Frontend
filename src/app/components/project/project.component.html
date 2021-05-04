@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="project" class="wrapper">
+  <div *ngIf="project; else loadingPage" class="wrapper">
     <h1 *ngIf="project.name">{{ project.name }}</h1>
     <h2>User's on this project:</h2>
     <div class="project-list">
@@ -41,15 +41,16 @@
         Add table
       </button>
     </div>
+    <button
+      class="delete-button"
+      mat-button
+      color="warn"
+      (click)="onDeleteProject()"
+    >
+      DELETE PROJECT
+    </button>
   </div>
-  <button
-    class="delete-button"
-    mat-button
-    color="warn"
-    (click)="onDeleteProject()"
-  >
-    DELETE PROJECT
-  </button>
+
   <button
     class="go-back-button"
     mat-button
@@ -58,4 +59,8 @@
   >
     GO BACK
   </button>
+  <ng-template #loadingPage class="wrapper"
+    ><div class="loading-page">
+      <mat-spinner color="accent"></mat-spinner></div
+  ></ng-template>
 </div>

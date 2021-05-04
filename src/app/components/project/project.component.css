@@ -40,3 +40,10 @@
   margin-top: 8px;
   font-size: large;
 }
+
+.loading-page {
+  margin-top: 16%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
