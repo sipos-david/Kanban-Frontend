@@ -6,8 +6,14 @@
   <mat-expansion-panel-header>
     <mat-panel-title class="task-header"> {{ data.name }} </mat-panel-title>
   </mat-expansion-panel-header>
+  <div class="edit-icon-holder">
+    <mat-icon (click)="onEditName()" color="primary">create</mat-icon>
+  </div>
   <mat-divider></mat-divider>
   <p>{{ data.description }}</p>
+  <div class="edit-icon-holder">
+    <mat-icon (click)="onEditDescription()" color="primary">create</mat-icon>
+  </div>
   <mat-divider></mat-divider>
   <mat-chip-list aria-label="user selection">
     <mat-chip *ngFor="let user of data.users"
@@ -29,7 +35,7 @@
 
   <mat-expansion-panel class="width-full mat-elevation-z0">
     <mat-expansion-panel-header>
-      <mat-panel-title>Comments </mat-panel-title>
+      <mat-panel-title>Comments</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <div class="comments width-full">

@@ -56,6 +56,42 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  public onEditName(): void {
+    const data = new SimpleAddDialogData();
+    data.title = 'Change name';
+    data.subtitle = 'Please enter the new name of the task:';
+    data.placeholder = 'Write something here...';
+    data.text = this.data?.name;
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result && result.text && result.text !== '' && this.data != null) {
+        this.data.name = result.text;
+        // TODO: change task name on server
+      }
+    });
+  }
+
+  public onEditDescription() {
+    const data = new SimpleAddDialogData();
+    data.title = 'Change desciption';
+    data.subtitle = 'Please enter the new desciption:';
+    data.placeholder = 'Write something here...';
+    data.text = this.data?.description;
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result && result.text && result.text !== '' && this.data != null) {
+        this.data.description = result.text;
+        // TODO: change task description on server
+      }
+    });
+  }
+
   public onRemoveUser(user: User) {
     const data = new SimpleDialogData();
     data.title = 'Delete user';
