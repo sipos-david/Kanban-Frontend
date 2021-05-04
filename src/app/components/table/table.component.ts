@@ -57,6 +57,24 @@ export class TableComponent implements OnInit {
     this.getTable();
   }
 
+  public onEditTableName(): void {
+    const data = new SimpleAddDialogData();
+    data.title = 'Edit table name';
+    data.subtitle = "Please enter the table's new name:";
+    data.placeholder = 'New name';
+    data.text = this.table?.name;
+    const dialogRef = this.dialog.open(SimpleAddDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
+      if (result && result.text && result.text !== '' && this.table != null) {
+        this.table.name = result.text;
+        // TODO: edit table name on server
+      }
+    });
+  }
+
   public getTable(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id != null) {

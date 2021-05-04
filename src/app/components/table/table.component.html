@@ -1,6 +1,14 @@
 <div class="container mat-app-background">
   <div *ngIf="table; else loadingPage" class="wrapper">
-    <h1 *ngIf="table.name">{{ table.name }}</h1>
+    <h1 *ngIf="table.name">
+      {{ table.name
+      }}<mat-icon
+        class="table-name-edit"
+        (click)="onEditTableName()"
+        color="primary"
+        >create</mat-icon
+      >
+    </h1>
     <div cdkDropListGroup class="column-list">
       <div class="column-container" *ngFor="let column of table.columns">
         <mat-expansion-panel class="column-header mat-elevation-z0">
