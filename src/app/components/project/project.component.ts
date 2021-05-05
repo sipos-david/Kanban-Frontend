@@ -120,9 +120,10 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
-      if (result) {
-        console.log('delete user: ' + user.name);
-        // TODO: user delete from project
+      if (result && this.project) {
+        this.projectService
+          .removeUser(this.project, user)
+          .subscribe(() => this.getProject());
       }
     });
   }

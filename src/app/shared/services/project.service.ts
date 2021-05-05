@@ -80,4 +80,18 @@ export class ProjectService {
         )
       );
   }
+
+  public removeUser(project: Project, user: User): Observable<Project> {
+    return this.httpService.delete<Project>(
+      this.name,
+      'addUsers()',
+      'added users project',
+      environment.api.v1.cache.project.id + project.id,
+      environment.api.v1.url.project +
+        '/' +
+        project.id +
+        '/users?user=' +
+        user.id
+    );
+  }
 }
