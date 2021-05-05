@@ -3,7 +3,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'src/app/core/services/settings.service';
@@ -41,11 +41,16 @@ export class TableComponent implements OnInit {
       this.setDarkMode(isDarkMode)
     );
     this.setDarkMode(this.settingsService.darkMode);
+    this.taskRemovedEvent.subscribe(() => {
+      this.getTableFromServer();
+    });
   }
 
   public table: Table | undefined;
 
   public dragPreviewClasses = '';
+
+  public taskRemovedEvent = new EventEmitter<Task>();
 
   private setDarkMode(isDarkMode: boolean): void {
     if (isDarkMode === true) {
@@ -82,6 +87,15 @@ export class TableComponent implements OnInit {
     if (id != null) {
       this.tableService
         .getTable(+id)
+        .subscribe((table) => (this.table = table));
+    }
+  }
+
+  public getTableFromServer(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id != null) {
+      this.tableService
+        .getTableFromServer(+id)
         .subscribe((table) => (this.table = table));
     }
   }
@@ -160,7 +174,7 @@ export class TableComponent implements OnInit {
             name: result.text,
             tasks: [],
           })
-          .subscribe(() => this.getTable());
+          .subscribe(() => this.getTableFromServer());
       }
     });
   }
@@ -208,7 +222,7 @@ export class TableComponent implements OnInit {
               comments: [],
               users: result.addedUsers,
             })
-            .subscribe((task) => column.tasks.push(task));
+            .subscribe(() => this.getTableFromServer());
         }
       });
     });

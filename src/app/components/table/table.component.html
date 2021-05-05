@@ -47,7 +47,10 @@
             class="task-container"
             *ngFor="let task of column.tasks"
           >
-            <app-task [data]="task"></app-task>
+            <app-task
+              [data]="task"
+              [dataChangedEvent]="taskRemovedEvent"
+            ></app-task>
           </div>
           <button
             class="add-column-button mat-elevation-z2"

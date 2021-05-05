@@ -54,4 +54,14 @@
       </button>
     </div>
   </mat-expansion-panel>
+  <div *ngIf="isTaskExistsOnServer" class="remove-button-holder">
+    <button
+      class="mat-elevation-z2 add-button"
+      mat-stroked-button
+      color="warn"
+      (click)="onDeleteTask()"
+    >
+      Delete task
+    </button>
+  </div>
 </mat-expansion-panel>

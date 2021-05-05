@@ -34,3 +34,11 @@ mat-divider {
   align-items: center;
   justify-content: flex-end;
 }
+
+.remove-button-holder {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

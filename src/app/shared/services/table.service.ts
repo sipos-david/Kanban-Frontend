@@ -29,6 +29,11 @@ export class TableService {
     );
   }
 
+  public getTableFromServer(id: number): Observable<Table> {
+    this.cacheService.removeItem(environment.api.v1.cache.table.id + id);
+    return this.getTable(id);
+  }
+
   public addTable(project: Project, table: Table): Observable<Table> {
     return this.httpService
       .post<Table>(

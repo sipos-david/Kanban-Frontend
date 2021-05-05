@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Task } from 'src/app/shared/models/task.model';
 import { User } from 'src/app/shared/models/user.model';
@@ -27,7 +28,15 @@ export class TaskComponent implements OnInit {
 
   @Input() public data: Task | undefined;
 
-  ngOnInit(): void {}
+  @Input() public dataChangedEvent: EventEmitter<Task> | undefined;
+
+  public isTaskExistsOnServer = false;
+
+  ngOnInit(): void {
+    if (this.data && this.data.id) {
+      this.isTaskExistsOnServer = true;
+    }
+  }
 
   onAddComment(): void {
     // TODO: save comment on server
@@ -140,12 +149,35 @@ export class TaskComponent implements OnInit {
 
   private updateTask(task: Task): void {
     if (this.data) {
+      this.data.id = task.id;
       this.data.name = task.name;
       this.data.columnId = task.columnId;
       this.data.comments = task.comments;
       this.data.description = task.description;
       this.data.number = task.number;
       this.data.users = task.users;
+      if (this.data.id) {
+        this.isTaskExistsOnServer = true;
+      }
     }
+  }
+
+  public onDeleteTask(): void {
+    const data = new SimpleDialogData();
+    data.title = 'Delete task';
+    data.subtitle = 'Are you sure you want to delete this  task?';
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
+      if (result && this.data) {
+        this.taskService.removeTask(this.data).subscribe((t) => {
+          if (this.dataChangedEvent && this.data?.id) {
+            this.dataChangedEvent.emit(t);
+          }
+        });
+      }
+    });
   }
 }

@@ -4,7 +4,6 @@ import { tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
-import { Project } from '../models/project.model';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
 
@@ -19,14 +18,24 @@ export class TaskService {
 
   private name = 'TaskService';
 
-  public getTask(id: number): Observable<Project> {
-    return this.httpService.get<Project>(
+  public getTask(id: number): Observable<Task> {
+    return this.httpService.get<Task>(
       this.name,
       'getTask()',
       'fetched task with id:' + id,
       environment.api.v1.cache.task.id + id,
       environment.api.v1.url.task + '/' + id,
       1
+    );
+  }
+
+  public removeTask(task: Task): Observable<Task> {
+    return this.httpService.delete<Task>(
+      this.name,
+      'removeTask()',
+      'removed task with id:' + task.id,
+      environment.api.v1.cache.task.id + task.id,
+      environment.api.v1.url.task + '/' + task.id
     );
   }
 
