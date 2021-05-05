@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { Comment } from 'src/app/shared/models/comment.model';
 import { Task } from 'src/app/shared/models/task.model';
 import { User } from 'src/app/shared/models/user.model';
 import { CommentService } from 'src/app/shared/services/comment.service';
@@ -25,11 +26,22 @@ export class TaskComponent implements OnInit {
     private taskService: TaskService,
     private commentService: CommentService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.commentsChangedEvent.subscribe((comment: Comment) => {
+      if (this.data) {
+        const index = this.data.comments.findIndex((c) => c.id === comment.id);
+        if (index > -1) {
+          this.data.comments.splice(index, 1);
+        }
+      }
+    });
+  }
 
   @Input() public data: Task | undefined;
 
   @Input() public dataChangedEvent: EventEmitter<Task> | undefined;
+
+  public commentsChangedEvent = new EventEmitter<Comment>();
 
   public isTaskExistsOnServer = false;
 
@@ -156,6 +168,7 @@ export class TaskComponent implements OnInit {
 
   private updateTask(task: Task): void {
     if (this.data) {
+      this.dataChangedEvent?.emit(task);
       this.data.id = task.id;
       this.data.name = task.name;
       this.data.columnId = task.columnId;

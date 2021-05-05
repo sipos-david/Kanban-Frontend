@@ -41,6 +41,7 @@
     <div class="comments width-full">
       <app-comment
         [data]="comment"
+        [dataChangedEvent]="commentsChangedEvent"
         *ngFor="let comment of data.comments"
         class="width-full"
       ></app-comment>
