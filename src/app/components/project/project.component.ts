@@ -146,10 +146,13 @@ export class ProjectComponent implements OnInit {
         data,
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe((result: AddUserDialogData) => {
         if (result) {
-          console.log('add users...');
-          // TODO: add users to project
+          if (this.project) {
+            this.projectService
+              .addUsers(this.project, result.addedUsers)
+              .subscribe(() => this.getProject());
+          }
         }
       });
     });

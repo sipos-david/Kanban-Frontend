@@ -5,6 +5,7 @@ import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
 import { Project } from '../models/project.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,31 @@ export class ProjectService {
       .pipe(
         tap(() =>
           this.cacheService.removeItem(environment.api.v1.cache.project.all)
+        )
+      );
+  }
+
+  public addUsers(project: Project, users: User[]): Observable<Project> {
+    let addedUsers = '?';
+    users.forEach((u) => (addedUsers += 'users=' + u.id + '&'));
+    addedUsers = addedUsers.slice(0, -1);
+    return this.httpService
+      .post<Project>(
+        this.name,
+        'addUsers()',
+        'added users project',
+        environment.api.v1.url.project +
+          '/' +
+          project.id +
+          '/users' +
+          addedUsers,
+        project
+      )
+      .pipe(
+        tap(() =>
+          this.cacheService.removeItem(
+            environment.api.v1.cache.project.id + project.id
+          )
         )
       );
   }
