@@ -55,7 +55,7 @@ export class CommentService {
       .pipe(
         tap((c) =>
           this.cacheService.setItem<Comment>(
-            environment.api.v1.cache.comment.id + comment.id,
+            environment.api.v1.cache.comment.id + c.id,
             c,
             1
           )
