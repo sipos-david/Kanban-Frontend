@@ -29,6 +29,9 @@ export const environment = {
         task: {
           id: 'v1-task-id-',
         },
+        comment: {
+          id: 'v1-comment-id-',
+        },
       },
       url: {
         project: 'http://localhost:5000/api/v1.0/projects',
@@ -36,6 +39,7 @@ export const environment = {
         table: 'http://localhost:5000/api/v1.0/tables',
         column: 'http://localhost:5000/api/v1.0/columns',
         task: 'http://localhost:5000/api/v1.0/tasks',
+        comment: 'http://localhost:5000/api/v1.0/comments',
       },
     },
   },

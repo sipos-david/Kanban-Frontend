@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Task } from 'src/app/shared/models/task.model';
 import { User } from 'src/app/shared/models/user.model';
+import { CommentService } from 'src/app/shared/services/comment.service';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddUserDialogComponent } from '../dialogs/add-user-dialog/add-user-dialog.component';
@@ -22,6 +23,7 @@ export class TaskComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private taskService: TaskService,
+    private commentService: CommentService,
     public dialog: MatDialog
   ) {}
 
@@ -38,7 +40,6 @@ export class TaskComponent implements OnInit {
   }
 
   onAddComment(): void {
-    // TODO: save comment on server
     const data = new SimpleAddDialogData();
     data.title = 'Add comment';
     data.subtitle = 'Please enter the comment: ';
@@ -48,9 +49,16 @@ export class TaskComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
-      if (result && result.text && result.text !== '' && this.data != null) {
-        if (this.authService.userId && this.authService.userName) {
-          this.data.comments.push({
+      if (
+        result &&
+        result.text &&
+        result.text !== '' &&
+        this.data != null &&
+        this.authService.userId &&
+        this.authService.userName
+      ) {
+        this.commentService
+          .addComment(this.data, {
             id: undefined,
             taskId: undefined,
             text: result.text,
@@ -60,8 +68,8 @@ export class TaskComponent implements OnInit {
               id: this.authService.userId,
               name: this.authService.userName,
             },
-          });
-        }
+          })
+          .subscribe((c) => this.data?.comments.push(c));
       }
     });
   }
