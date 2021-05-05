@@ -134,7 +134,7 @@ export class TableComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.table != null) {
         column.name = result.text;
-        // TODO: edit column on server
+        // TODO: edit column name on server
       }
     });
   }
