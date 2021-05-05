@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Task } from 'src/app/shared/models/task.model';
 import { User } from 'src/app/shared/models/user.model';
+import { TaskService } from 'src/app/shared/services/task.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddUserDialogComponent } from '../dialogs/add-user-dialog/add-user-dialog.component';
 import { AddUserDialogData } from '../dialogs/add-user-dialog/add-user-dialog.model';
@@ -20,6 +21,7 @@ export class TaskComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private taskService: TaskService,
     public dialog: MatDialog
   ) {}
 
@@ -102,9 +104,10 @@ export class TaskComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
-      if (result) {
-        console.log('delete user');
-        // TODO: user delete from task
+      if (result && this.data) {
+        this.taskService
+          .removeUser(this.data, user)
+          .subscribe((t) => this.updateTask(t));
       }
     });
   }
@@ -126,12 +129,23 @@ export class TaskComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((result: AddUserDialogData) => {
-        if (result) {
-          result.addedUsers.forEach((u) => this.data?.users.push(u));
-          console.log('add users...');
-          // TODO: add users to task
+        if (result && this.data) {
+          this.taskService
+            .addUsers(this.data, result.addedUsers)
+            .subscribe((t) => this.updateTask(t));
         }
       });
     });
+  }
+
+  private updateTask(task: Task): void {
+    if (this.data) {
+      this.data.name = task.name;
+      this.data.columnId = task.columnId;
+      this.data.comments = task.comments;
+      this.data.description = task.description;
+      this.data.number = task.number;
+      this.data.users = task.users;
+    }
   }
 }

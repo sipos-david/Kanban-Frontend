@@ -26,12 +26,16 @@ export const environment = {
           all: 'v1-user-all',
           id: 'v1-user-id-',
         },
+        task: {
+          id: 'v1-task-id-',
+        },
       },
       url: {
         project: 'http://localhost:5000/api/v1.0/projects',
         user: 'http://localhost:5000/api/v1.0/users',
         table: 'http://localhost:5000/api/v1.0/tables',
         column: 'http://localhost:5000/api/v1.0/columns',
+        task: 'http://localhost:5000/api/v1.0/tasks',
       },
     },
   },

@@ -3,7 +3,7 @@ import { Comment } from './comment.model';
 
 export interface Task {
   id: number | undefined;
-  columnid: number | undefined;
+  columnId: number | undefined;
   name: string;
   number: number;
   description: string;
