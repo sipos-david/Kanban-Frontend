@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Task } from 'src/app/shared/models/task.model';
 import { User } from 'src/app/shared/models/user.model';
