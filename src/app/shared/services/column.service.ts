@@ -5,8 +5,8 @@ import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
 import { Column } from '../models/column.model';
-import { Project } from '../models/project.model';
 import { Table } from '../models/table.model';
+import { Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,5 +46,25 @@ export class ColumnService {
           )
         )
       );
+  }
+
+  public addTask(column: Column, task: Task): Observable<Task> {
+    return this.httpService.post<Task>(
+      this.name,
+      'addTask()',
+      'added task to column: ' + column.id,
+      environment.api.v1.url.column + '/' + column.id + '/tasks',
+      task
+    );
+  }
+
+  public removeTask(column: Column, task: Task): Observable<Task> {
+    return this.httpService.delete<Task>(
+      this.name,
+      'removeTask()',
+      'removed task from column: ' + task.id,
+      environment.api.v1.cache.task.id + task.id,
+      environment.api.v1.url.column + '/' + column.id + '/tasks?task=' + task.id
+    );
   }
 }

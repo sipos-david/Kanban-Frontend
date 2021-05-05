@@ -12,6 +12,7 @@ import { Table } from 'src/app/shared/models/table.model';
 import { Task } from 'src/app/shared/models/task.model';
 import { ColumnService } from 'src/app/shared/services/column.service';
 import { TableService } from 'src/app/shared/services/table.service';
+import { TaskService } from 'src/app/shared/services/task.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddTaskDialogData } from '../dialogs/add-task-dialog/add-task-dialog-data.model';
 import { AddTaskDialogComponent } from '../dialogs/add-task-dialog/add-task-dialog.component';
@@ -33,6 +34,7 @@ export class TableComponent implements OnInit {
     private userService: UserService,
     private columnService: ColumnService,
     private settingsService: SettingsService,
+    private taskService: TaskService,
     public dialog: MatDialog
   ) {
     this.settingsService.themeChangeEvent.subscribe((isDarkMode) =>
@@ -181,7 +183,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  onAddTask(column: Column) {
+  public onAddTask(column: Column): void {
     const data = new AddTaskDialogData();
     this.userService.getUsers().subscribe((users) => {
       data.users = users;
@@ -196,16 +198,17 @@ export class TableComponent implements OnInit {
           result.description !== '' &&
           this.table != null
         ) {
-          // TODO: add task on server
-          column.tasks.push({
-            id: undefined,
-            columnid: column.id,
-            name: result.name,
-            number: column.tasks.length,
-            description: result.description,
-            comments: [],
-            users: result.addedUsers,
-          });
+          this.columnService
+            .addTask(column, {
+              id: undefined,
+              columnId: column.id,
+              name: result.name,
+              number: column.tasks.length,
+              description: result.description,
+              comments: [],
+              users: result.addedUsers,
+            })
+            .subscribe((task) => column.tasks.push(task));
         }
       });
     });
