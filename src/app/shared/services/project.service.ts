@@ -45,7 +45,7 @@ export class ProjectService {
       .post<Project>(
         this.name,
         'AddProject()',
-        'added all project',
+        'added project',
         environment.api.v1.url.project,
         project
       )
@@ -53,6 +53,22 @@ export class ProjectService {
         tap(() =>
           this.cacheService.removeItem(environment.api.v1.cache.project.all)
         )
+      );
+  }
+
+  public removeProject(project: Project): Observable<Project> {
+    return this.httpService
+      .delete<Project>(
+        this.name,
+        'removeProject()',
+        'remove project with id:' + project.id,
+        environment.api.v1.cache.project.id + project.id,
+        environment.api.v1.url.project + '/' + project.id
+      )
+      .pipe(
+        tap(() => {
+          this.cacheService.removeItem(environment.api.v1.cache.project.all);
+        })
       );
   }
 

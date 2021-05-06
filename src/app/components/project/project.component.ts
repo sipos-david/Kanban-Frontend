@@ -58,9 +58,10 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
-      if (result) {
-        console.log('delete project');
-        // TODO: project delete
+      if (result && this.project) {
+        this.projectService
+          .removeProject(this.project)
+          .subscribe(() => this.onGoBack());
       }
     });
   }
