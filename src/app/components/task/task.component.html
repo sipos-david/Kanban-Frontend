@@ -4,7 +4,7 @@
   class="task-box mat-elevation-z2 mat-app-background"
 >
   <mat-expansion-panel-header>
-    <mat-panel-title class="task-header"> {{ data.name }} </mat-panel-title>
+    <mat-panel-title class="task-header">{{ data.name }}</mat-panel-title>
   </mat-expansion-panel-header>
   <div class="edit-icon-holder">
     <mat-icon (click)="onEditName()" color="primary">create</mat-icon>
@@ -17,8 +17,8 @@
   <mat-divider></mat-divider>
   <mat-chip-list aria-label="user selection">
     <mat-chip *ngFor="let user of data.users"
-      >{{ user.name }}
-      <mat-icon color="warn" (click)="onRemoveUser(user)"
+      >{{ user.name
+      }}<mat-icon color="warn" (click)="onRemoveUser(user)"
         >clear</mat-icon
       ></mat-chip
     >
