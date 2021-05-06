@@ -148,9 +148,10 @@ export class TableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
-      if (result) {
-        console.log('delete column');
-        // TODO: column delete
+      if (result && this.table) {
+        this.columnService
+          .removeColumn(this.table, column)
+          .subscribe(() => this.getTableFromServer());
       }
     });
   }

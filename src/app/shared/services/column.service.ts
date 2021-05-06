@@ -48,6 +48,20 @@ export class ColumnService {
       );
   }
 
+  public removeColumn(table: Table, column: Column): Observable<Column> {
+    return this.httpService.delete<Column>(
+      this.name,
+      'removeColumn()',
+      'remvoved column from table: ' + table.id,
+      environment.api.v1.cache.table.id + table.id,
+      environment.api.v1.url.table +
+        '/' +
+        table.id +
+        '/columns?column=' +
+        column.id
+    );
+  }
+
   public addTask(column: Column, task: Task): Observable<Task> {
     return this.httpService.post<Task>(
       this.name,
