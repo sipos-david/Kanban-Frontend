@@ -51,4 +51,26 @@ export class TableService {
         )
       );
   }
+
+  public deleteTable(table: Table): Observable<Table> {
+    return this.httpService
+      .delete<Table>(
+        this.name,
+        'addTable()',
+        'delete table with id: ' + table.id,
+        environment.api.v1.cache.table.id + table.id,
+        environment.api.v1.url.project +
+          '/' +
+          table.projectId +
+          '/tables?table=' +
+          table.id
+      )
+      .pipe(
+        tap(() =>
+          this.cacheService.removeItem(
+            environment.api.v1.cache.project.id + table.projectId
+          )
+        )
+      );
+  }
 }

@@ -114,9 +114,12 @@ export class TableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: SimpleDialogData) => {
-      if (result) {
-        console.log('delete table');
-        // TODO: table delete
+      if (result && this.table) {
+        this.tableService
+          .deleteTable(this.table)
+          .subscribe(() =>
+            this.router.navigate(['projects/', this.table?.projectId])
+          );
       }
     });
   }
