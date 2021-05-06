@@ -87,7 +87,7 @@ export class TableComponent implements OnInit {
     if (id != null) {
       this.tableService
         .getTable(+id)
-        .subscribe((table) => (this.table = table));
+        .subscribe((table) => this.sortTasks(table));
     }
   }
 
@@ -96,8 +96,15 @@ export class TableComponent implements OnInit {
     if (id != null) {
       this.tableService
         .getTableFromServer(+id)
-        .subscribe((table) => (this.table = table));
+        .subscribe((table) => this.sortTasks(table));
     }
+  }
+
+  private sortTasks(table: Table): void {
+    table.columns.forEach((c) =>
+      c.tasks.sort((t1, t2) => t1.number - t2.number)
+    );
+    this.table = table;
   }
 
   public onGoBack(): void {
@@ -184,7 +191,22 @@ export class TableComponent implements OnInit {
   }
 
   public drop(event: CdkDragDrop<Task[]>): void {
-    // TODO: save task move on server
+    if (
+      event.previousContainer === event.container &&
+      event.previousIndex === event.currentIndex
+    ) {
+      return;
+    }
+
+    this.table?.columns.forEach((c) => {
+      if (c.tasks === event.container.data) {
+        event.item.data.number = event.currentIndex;
+        this.columnService
+          .moveTask(c, event.item.data)
+          .subscribe(() => this.getTableFromServer());
+      }
+    });
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

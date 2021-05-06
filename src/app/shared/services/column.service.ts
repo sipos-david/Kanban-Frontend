@@ -81,4 +81,24 @@ export class ColumnService {
       environment.api.v1.url.column + '/' + column.id + '/tasks?task=' + task.id
     );
   }
+
+  public moveTask(column: Column, task: Task): Observable<Task> {
+    return this.httpService
+      .put<Task>(
+        this.name,
+        'moveTask()',
+        'moved task: ' + task.id + ' in column: ' + column.id,
+        environment.api.v1.cache.task.id + task.id,
+        environment.api.v1.url.column + '/' + column.id + '/tasks',
+        1,
+        task
+      )
+      .pipe(
+        tap(() =>
+          this.cacheService.removeItem(
+            environment.api.v1.cache.table.id + column.tableId
+          )
+        )
+      );
+  }
 }
