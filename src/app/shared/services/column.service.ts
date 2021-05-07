@@ -5,6 +5,7 @@ import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
 import { Column } from '../models/column.model';
+import { NameChange } from '../models/name-change.model';
 import { Table } from '../models/table.model';
 import { Task } from '../models/task.model';
 
@@ -99,6 +100,27 @@ export class ColumnService {
             environment.api.v1.cache.table.id + column.tableId
           )
         )
+      );
+  }
+
+  public changeColumnName(
+    column: Column,
+    name: NameChange
+  ): Observable<ArrayBuffer> {
+    return this.httpService
+      .patch(
+        this.name,
+        'changeColumnName()',
+        'change the name of the column: ' + column.id,
+        environment.api.v1.url.column + '/' + column.id,
+        JSON.stringify(name)
+      )
+      .pipe(
+        tap(() => {
+          this.cacheService.removeItem(
+            environment.api.v1.cache.table.id + column.tableId
+          );
+        })
       );
   }
 }
