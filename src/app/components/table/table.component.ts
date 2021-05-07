@@ -12,7 +12,6 @@ import { Table } from 'src/app/shared/models/table.model';
 import { Task } from 'src/app/shared/models/task.model';
 import { ColumnService } from 'src/app/shared/services/column.service';
 import { TableService } from 'src/app/shared/services/table.service';
-import { TaskService } from 'src/app/shared/services/task.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddTaskDialogData } from '../dialogs/add-task-dialog/add-task-dialog-data.model';
 import { AddTaskDialogComponent } from '../dialogs/add-task-dialog/add-task-dialog.component';
@@ -34,7 +33,6 @@ export class TableComponent implements OnInit {
     private userService: UserService,
     private columnService: ColumnService,
     private settingsService: SettingsService,
-    private taskService: TaskService,
     public dialog: MatDialog
   ) {
     this.settingsService.themeChangeEvent.subscribe((isDarkMode) =>
@@ -132,7 +130,7 @@ export class TableComponent implements OnInit {
     });
   }
 
-  public onEditColumn(column: Column) {
+  public onEditColumn(column: Column): void {
     const data = new SimpleAddDialogData();
     data.title = 'Edit column';
     data.subtitle = "Please enter column's new name:";
@@ -151,7 +149,7 @@ export class TableComponent implements OnInit {
     });
   }
 
-  public onRemoveColumn(column: Column) {
+  public onRemoveColumn(column: Column): void {
     const data = new SimpleDialogData();
     data.title = 'Delete column';
     data.subtitle = 'Are you sure you want to delete "' + column?.name + '" ?';

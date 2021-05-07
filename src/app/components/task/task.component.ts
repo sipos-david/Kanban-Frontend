@@ -110,7 +110,7 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  public onEditDescription() {
+  public onEditDescription(): void {
     const data = new SimpleAddDialogData();
     data.title = 'Change desciption';
     data.subtitle = 'Please enter the new desciption:';
@@ -133,7 +133,7 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  public onRemoveUser(user: User) {
+  public onRemoveUser(user: User): void {
     const data = new SimpleDialogData();
     data.title = 'Delete user';
     data.subtitle =
