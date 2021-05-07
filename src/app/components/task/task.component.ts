@@ -33,6 +33,7 @@ export class TaskComponent implements OnInit {
         if (index > -1) {
           this.data.comments.splice(index, 1);
         }
+        this.dataChangedEvent?.emit(this.data);
       }
     });
   }
