@@ -98,8 +98,13 @@ export class TaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.data != null) {
-        this.data.name = result.text;
-        // TODO: change task name on server
+        this.taskService
+          .changeTask(this.data, {
+            name: result.text,
+          })
+          .subscribe((t) => {
+            this.updateTask(t);
+          });
       }
     });
   }
@@ -116,8 +121,13 @@ export class TaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.data != null) {
-        this.data.description = result.text;
-        // TODO: change task description on server
+        this.taskService
+          .changeTask(this.data, {
+            description: result.text,
+          })
+          .subscribe((t) => {
+            this.updateTask(t);
+          });
       }
     });
   }

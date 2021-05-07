@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
+import { TaskChange } from '../models/task-change-model';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
 
@@ -68,5 +69,26 @@ export class TaskService {
       environment.api.v1.cache.task.id + task.id,
       environment.api.v1.url.task + '/' + task.id + '/users?user=' + user.id
     );
+  }
+
+  public changeTask(
+    task: Task,
+    changedProperties: TaskChange
+  ): Observable<Task> {
+    return this.httpService
+      .patch(
+        this.name,
+        'changeTask()',
+        'change the name or the desc of the task: ' + task.id,
+        environment.api.v1.url.task + '/' + task.id,
+        JSON.stringify(changedProperties)
+      )
+      .pipe(
+        tap(() => {
+          this.cacheService.removeItem(
+            environment.api.v1.cache.task.id + task.id
+          );
+        })
+      );
   }
 }
