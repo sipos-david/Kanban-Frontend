@@ -119,8 +119,8 @@ export class ProjectService {
     return this.httpService
       .patch(
         this.name,
-        'removeUser()',
-        'remove user from project',
+        'changeProjectName()',
+        'change the nome of the project:' + project.id,
         environment.api.v1.url.project + '/' + project.id,
         JSON.stringify(name)
       )
