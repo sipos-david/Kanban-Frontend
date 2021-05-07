@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
+import { NameChange } from '../models/name-change.model';
 import { Project } from '../models/project.model';
 import { Table } from '../models/table.model';
 
@@ -71,6 +72,30 @@ export class TableService {
             environment.api.v1.cache.project.id + table.projectId
           )
         )
+      );
+  }
+
+  public changeTableName(
+    table: Table,
+    name: NameChange
+  ): Observable<ArrayBuffer> {
+    return this.httpService
+      .patch(
+        this.name,
+        'changeTableName()',
+        'change the name of the table: ' + table.id,
+        environment.api.v1.url.table + '/' + table.id,
+        JSON.stringify(name)
+      )
+      .pipe(
+        tap(() => {
+          this.cacheService.removeItem(
+            environment.api.v1.cache.table.id + table.id
+          );
+          this.cacheService.removeItem(
+            environment.api.v1.cache.project.id + table.projectId
+          );
+        })
       );
   }
 }

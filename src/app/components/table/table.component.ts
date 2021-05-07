@@ -76,8 +76,9 @@ export class TableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.table != null) {
-        this.table.name = result.text;
-        // TODO: edit table name on server
+        this.tableService
+          .changeTableName(this.table, { name: result.text })
+          .subscribe(() => this.getTableFromServer());
       }
     });
   }
