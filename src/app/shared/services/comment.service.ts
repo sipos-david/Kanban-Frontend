@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
+import { CommentChange } from '../models/comment-change.model';
 import { Comment } from '../models/comment.model';
 import { Task } from '../models/task.model';
 
@@ -58,6 +59,27 @@ export class CommentService {
             environment.api.v1.cache.comment.id + c.id,
             c,
             1
+          )
+        )
+      );
+  }
+
+  public changeComment(
+    comment: Comment,
+    change: CommentChange
+  ): Observable<Comment> {
+    return this.httpService
+      .patch(
+        this.name,
+        'changeComment()',
+        'changed coment with id:' + comment.id,
+        environment.api.v1.url.comment + '/' + comment.id,
+        change
+      )
+      .pipe(
+        tap((c) =>
+          this.cacheService.removeItem(
+            environment.api.v1.cache.comment.id + c.id
           )
         )
       );

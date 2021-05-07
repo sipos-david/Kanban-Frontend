@@ -59,8 +59,9 @@ export class CommentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.data != null) {
-        this.data.text = result.text;
-        // TODO: edit comment on server
+        this.commentService
+          .changeComment(this.data, { text: result.text })
+          .subscribe((c) => this.dataChangedEvent?.emit(c));
       }
     });
   }
