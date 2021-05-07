@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { environment } from 'src/environments/environment';
+import { NameChange } from '../models/name-change.model';
 import { Project } from '../models/project.model';
 import { User } from '../models/user.model';
 
@@ -109,5 +110,27 @@ export class ProjectService {
         '/users?user=' +
         user.id
     );
+  }
+
+  public changeProjectName(
+    project: Project,
+    name: NameChange
+  ): Observable<ArrayBuffer> {
+    return this.httpService
+      .patch(
+        this.name,
+        'removeUser()',
+        'remove user from project',
+        environment.api.v1.url.project + '/' + project.id,
+        JSON.stringify(name)
+      )
+      .pipe(
+        tap(() => {
+          this.cacheService.removeItem(
+            environment.api.v1.cache.project.id + project.id
+          );
+          this.cacheService.removeItem(environment.api.v1.cache.project.all);
+        })
+      );
   }
 }

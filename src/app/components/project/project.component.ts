@@ -78,8 +78,9 @@ export class ProjectComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: SimpleAddDialogData) => {
       if (result && result.text && result.text !== '' && this.project != null) {
-        this.project.name = result.text;
-        // TODO: edit project name on server
+        this.projectService
+          .changeProjectName(this.project, { name: result.text })
+          .subscribe(() => this.getProject());
       }
     });
   }

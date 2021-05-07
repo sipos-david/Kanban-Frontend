@@ -148,6 +148,31 @@ export class HttpService {
   }
 
   /**
+   * Patches an object on the server
+   *
+   * @param serviceName  the name of the service wich called the function
+   * @param callerFunctionName the name of the caller function
+   * @param logMessage the message to be logged
+   * @param url the url to patch
+   * @param body the data in the body
+   * @returns the answer of the patch as any
+   */
+  public patch(
+    serviceName: string,
+    callerFunctionName: string,
+    logMessage: string,
+    url: string,
+    body: any
+  ): Observable<any> {
+    return this.http.patch(url, body, this.httpOptions).pipe(
+      tap((_) => {
+        this.loggingService.log(serviceName + ': ' + logMessage);
+      }),
+      catchError(this.handleHttpError<any>(serviceName, callerFunctionName))
+    );
+  }
+
+  /**
    * Handle Http operation that failed.
    * Let the app continue.
    * @param service - the name of the service where the exception happened
