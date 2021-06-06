@@ -27,7 +27,7 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   public add(event: MatChipInputEvent): void {
-    const input = event.input;
+    const input = event.chipInput?.inputElement;
     if (event.value) {
       const value = event.value.trim();
       const user = this.data.users.find((u) => u.name === value);
