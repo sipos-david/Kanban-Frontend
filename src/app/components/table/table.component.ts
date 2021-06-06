@@ -124,7 +124,7 @@ export class TableComponent implements OnInit {
         this.tableService
           .deleteTable(this.table)
           .subscribe(() =>
-            this.router.navigate(['projects/', this.table?.projectId])
+            this.router.navigate(['projects', this.table?.projectId])
           );
       }
     });
