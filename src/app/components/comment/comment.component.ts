@@ -13,7 +13,7 @@ import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog.model';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css'],
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
   constructor(
     public dialog: MatDialog,
     private commentService: CommentService,
@@ -23,8 +23,6 @@ export class CommentComponent implements OnInit {
   @Input() public data: Comment | undefined;
 
   @Input() public dataChangedEvent: EventEmitter<Comment> | undefined;
-
-  ngOnInit(): void {}
 
   public onDeleteComment(): void {
     const data = new SimpleDialogData();

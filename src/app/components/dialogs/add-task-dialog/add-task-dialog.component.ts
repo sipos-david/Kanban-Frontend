@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/shared/models/user.model';
@@ -10,7 +10,7 @@ import { AddTaskDialogData } from './add-task-dialog-data.model';
   templateUrl: './add-task-dialog.component.html',
   styleUrls: ['./add-task-dialog.component.css'],
 })
-export class AddTaskDialogComponent implements OnInit {
+export class AddTaskDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddTaskDialogData
@@ -50,6 +50,4 @@ export class AddTaskDialogComponent implements OnInit {
       this.data.addedUsers.splice(index, 1);
     }
   }
-
-  ngOnInit(): void {}
 }

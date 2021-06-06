@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/shared/models/user.model';
@@ -10,7 +10,7 @@ import { AddUserDialogData } from './add-user-dialog.model';
   templateUrl: './add-user-dialog.component.html',
   styleUrls: ['./add-user-dialog.component.css'],
 })
-export class AddUserDialogComponent implements OnInit {
+export class AddUserDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AddUserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddUserDialogData
@@ -50,6 +50,4 @@ export class AddUserDialogComponent implements OnInit {
       this.data.addedUsers.splice(index, 1);
     }
   }
-
-  ngOnInit(): void {}
 }

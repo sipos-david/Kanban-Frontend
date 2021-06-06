@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SimpleAddDialogData } from './simple-add-dialog-data.model';
 
@@ -7,7 +7,7 @@ import { SimpleAddDialogData } from './simple-add-dialog-data.model';
   templateUrl: './simple-add-dialog.component.html',
   styleUrls: ['./simple-add-dialog.component.css'],
 })
-export class SimpleAddDialogComponent implements OnInit {
+export class SimpleAddDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<SimpleAddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SimpleAddDialogData
@@ -16,6 +16,4 @@ export class SimpleAddDialogComponent implements OnInit {
   public onNoClick(): void {
     this.dialogRef.close();
   }
-
-  ngOnInit(): void {}
 }

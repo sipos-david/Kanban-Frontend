@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectAddDialogData } from './project-add-dialog.model';
@@ -14,7 +14,7 @@ export interface Fruit {
   templateUrl: './project-add-dialog.component.html',
   styleUrls: ['./project-add-dialog.component.css'],
 })
-export class ProjectAddDialogComponent implements OnInit {
+export class ProjectAddDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ProjectAddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectAddDialogData
@@ -58,6 +58,4 @@ export class ProjectAddDialogComponent implements OnInit {
       }
     }
   }
-
-  ngOnInit(): void {}
 }
