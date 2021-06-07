@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { Project } from 'src/app/shared/models/project.model';
 import { User } from 'src/app/shared/models/user.model';
 import { ProjectService } from 'src/app/shared/services/project.service';
@@ -16,6 +17,7 @@ import { ProjectAddDialogData } from '../dialogs/project-add-dialog/project-add-
 })
 export class DashboardComponent implements OnInit {
   constructor(
+    private settingsService: SettingsService,
     private projectService: ProjectService,
     private authService: AuthService,
     private userService: UserService,
@@ -27,6 +29,7 @@ export class DashboardComponent implements OnInit {
   projects: Project[] = [];
   userProjects: Project[] = [];
   isLoggedIn = false;
+  isSearchEnabled = false;
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn;
@@ -41,6 +44,11 @@ export class DashboardComponent implements OnInit {
       }
     });
     this.authService.userLoadProfileEvent.subscribe(() => this.getData());
+
+    this.isSearchEnabled = this.settingsService.searchEnabled;
+    this.settingsService.searchEnabledChangeEvent.subscribe(
+      (isSearchEnabled) => (this.isSearchEnabled = isSearchEnabled)
+    );
   }
 
   public viewProject(project: Project): void {

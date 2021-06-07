@@ -21,6 +21,10 @@
     </button>
   </div>
 
+  <div *ngIf="isSearchEnabled === true">
+    <app-search></app-search>
+  </div>
+
   <h2>Avaliable projects:</h2>
   <div class="project-list">
     <button
