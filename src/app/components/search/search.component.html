@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <h2>Find projects:</h2>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Project Name</mat-label>
+      <input
+        [(ngModel)]="query"
+        matInput
+        placeholder="My Super Secret Project"
+      />
+    </mat-form-field>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="search()"
+      class="search mat-elevation-z2"
+    >
+      SEARCH
+    </button>
+  </div>
+  <div *ngIf="displaySearchResult === true">
+    <div
+      class="project-list"
+      *ngIf="isSearchResultAvailable === true; else loading"
+    >
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngFor="let project of projects"
+        (click)="viewProject(project)"
+        class="project-item mat-elevation-z2"
+      >
+        {{ project.name }}
+      </button>
+    </div>
+    <ng-template #loading>
+      <mat-spinner color="accent" class="spinner" [diameter]="64"></mat-spinner>
+    </ng-template>
+  </div>
+</div>

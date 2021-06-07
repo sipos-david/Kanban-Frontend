@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { AddTaskDialogComponent } from './components/dialogs/add-task-dialog/add-task-dialog.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CommentComponent } from './components/comment/comment.component';
     TaskComponent,
     AddTaskDialogComponent,
     CommentComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

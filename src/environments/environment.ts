@@ -42,6 +42,17 @@ export const environment = {
         comment: 'http://localhost:5000/api/v1.0/comments',
       },
     },
+    v1_1: {
+      cache: {
+        project: {
+          all: 'v1_1-project-all',
+          search: 'v1_1-project-search-',
+        },
+      },
+      url: {
+        project: 'http://localhost:5000/api/v1.1/projects',
+      },
+    },
   },
 };
 

@@ -30,6 +30,28 @@ export class ProjectService {
     );
   }
 
+  public getProjectsByName(query: string | undefined): Observable<Project[]> {
+    if (query) {
+      return this.httpService.get<Project[]>(
+        this.name,
+        'getProjectsByName()',
+        'fetchted projects by name: ' + query,
+        environment.api.v1_1.cache.project.search + query,
+        environment.api.v1_1.url.project + '?name=' + query,
+        1
+      );
+    } else {
+      return this.httpService.get<Project[]>(
+        this.name,
+        'getProjectsByName()',
+        'fetchted all projects',
+        environment.api.v1_1.cache.project.all,
+        environment.api.v1_1.url.project,
+        1
+      );
+    }
+  }
+
   public getProject(id: number): Observable<Project> {
     return this.httpService.get<Project>(
       this.name,
@@ -51,9 +73,10 @@ export class ProjectService {
         project
       )
       .pipe(
-        tap(() =>
-          this.cacheService.removeItem(environment.api.v1.cache.project.all)
-        )
+        tap(() => {
+          this.cacheService.removeItem(environment.api.v1.cache.project.all);
+          this.cacheService.removeItem(environment.api.v1_1.cache.project.all);
+        })
       );
   }
 
@@ -69,6 +92,7 @@ export class ProjectService {
       .pipe(
         tap(() => {
           this.cacheService.removeItem(environment.api.v1.cache.project.all);
+          this.cacheService.removeItem(environment.api.v1_1.cache.project.all);
         })
       );
   }
@@ -130,6 +154,7 @@ export class ProjectService {
             environment.api.v1.cache.project.id + project.id
           );
           this.cacheService.removeItem(environment.api.v1.cache.project.all);
+          this.cacheService.removeItem(environment.api.v1_1.cache.project.all);
         })
       );
   }
