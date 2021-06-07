@@ -1,8 +1,21 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
   <span>{{ title }}</span>
   <span class="titlebar-spacer"></span>
+
+  <section class="toggle-section">
+    <h3>v1.0</h3>
+    <mat-slide-toggle
+      #search_toggle
+      [(ngModel)]="isSearchEnabled"
+      class="mr-8"
+    ></mat-slide-toggle>
+    <h3>v1.1</h3>
+  </section>
+  <section class="toggle-section">
+    <mat-icon class="mr-8">brightness_5</mat-icon>
+    <mat-slide-toggle #dark_mode_toggle [(ngModel)]="isDarkMode" class="mr-8">
+    </mat-slide-toggle>
+    <mat-icon>bedtime</mat-icon>
+  </section>
   <button mat-button color="warn" (click)="onLogout()">Logout</button>
-  <mat-icon class="mr-8">brightness_5</mat-icon>
-  <mat-slide-toggle [(ngModel)]="isDarkMode" class="mr-8"> </mat-slide-toggle>
-  <mat-icon>bedtime</mat-icon>
 </mat-toolbar>

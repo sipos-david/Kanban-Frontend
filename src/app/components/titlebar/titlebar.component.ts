@@ -12,8 +12,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class TitlebarComponent implements AfterViewInit {
   title = 'Kanban Board';
   isDarkMode: boolean;
+  isSearchEnabled: boolean;
 
-  @ViewChild(MatSlideToggle) toggle: MatSlideToggle | undefined;
+  @ViewChild('search_toggle') searchToggle: MatSlideToggle | undefined;
+  @ViewChild('dark_mode_toggle') darkModeToggle: MatSlideToggle | undefined;
 
   private darkClassName = 'darkMode';
 
@@ -22,6 +24,7 @@ export class TitlebarComponent implements AfterViewInit {
     private settingsService: SettingsService,
     private authService: AuthService
   ) {
+    this.isSearchEnabled = this.settingsService.searchEnabled;
     this.isDarkMode = this.settingsService.darkMode;
     if (this.isDarkMode) {
       this.overlay.getContainerElement().classList.add(this.darkClassName);
@@ -29,13 +32,16 @@ export class TitlebarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.toggle?.change.subscribe(() => {
+    this.darkModeToggle?.change.subscribe(() => {
       this.settingsService.darkMode = this.isDarkMode;
       if (this.isDarkMode) {
         this.overlay.getContainerElement().classList.add(this.darkClassName);
       } else {
         this.overlay.getContainerElement().classList.remove(this.darkClassName);
       }
+    });
+    this.searchToggle?.change.subscribe(() => {
+      this.settingsService.searchEnabled = this.isSearchEnabled;
     });
   }
 
