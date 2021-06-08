@@ -1,5 +1,9 @@
 <div *ngIf="isLoggedIn; else homePage" class="wrapper mat-app-background">
   <h1>Welcome, {{ user.name }}!</h1>
+  <section class="server-status" *ngIf="serverStatus">
+    <h3>Server status:</h3>
+    <h4 [class]="serverStatus">{{ serverStatus }}</h4>
+  </section>
   <h2>Your projects:</h2>
   <div class="project-list">
     <button

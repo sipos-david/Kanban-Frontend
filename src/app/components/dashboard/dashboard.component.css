@@ -30,3 +30,26 @@
   align-items: center;
   justify-content: center;
 }
+
+.server-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.server-status h3 {
+  margin-right: 16px;
+}
+
+.Healthy {
+  color: palegreen;
+}
+
+.Unhealthy {
+  color: palegoldenrod;
+}
+
+.Degraded {
+  color: palevioletred;
+}

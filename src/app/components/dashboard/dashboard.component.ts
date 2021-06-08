@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { HealthService } from 'src/app/core/services/health.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Project } from 'src/app/shared/models/project.model';
 import { User } from 'src/app/shared/models/user.model';
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private userService: UserService,
+    private healthService: HealthService,
     private router: Router,
     public dialog: MatDialog
   ) {}
@@ -30,6 +32,7 @@ export class DashboardComponent implements OnInit {
   userProjects: Project[] = [];
   isLoggedIn = false;
   isSearchEnabled = false;
+  serverStatus: string | undefined;
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn;
@@ -49,6 +52,10 @@ export class DashboardComponent implements OnInit {
     this.settingsService.searchEnabledChangeEvent.subscribe(
       (isSearchEnabled) => (this.isSearchEnabled = isSearchEnabled)
     );
+
+    this.healthService
+      .getApiHealth()
+      .subscribe((health) => (this.serverStatus = health));
   }
 
   public viewProject(project: Project): void {
