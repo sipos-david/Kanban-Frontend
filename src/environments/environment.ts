@@ -9,6 +9,7 @@ export const environment = {
       dashboard: 'http://localhost:4200/dashboard',
     },
   },
+  server: { health: 'http://localhost:5000/health' },
   api: {
     v1: {
       cache: {
