@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CacheService } from 'src/app/core/services/cache.service';
 import { LoggingService } from 'src/app/core/services/logging.service';
-import { AuthService } from './auth.service';
 
 /**
  * Service for sending HTTP REST messages. If the response has data, stores it in the cache.
@@ -16,18 +15,8 @@ export class HttpService {
   constructor(
     private http: HttpClient,
     private loggingService: LoggingService,
-    private cacheService: CacheService,
-    private authService: AuthService
+    private cacheService: CacheService
   ) {}
-
-  /* private get httpOptions(): any {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.accessToken}`,
-      }),
-    };
-  } */
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
