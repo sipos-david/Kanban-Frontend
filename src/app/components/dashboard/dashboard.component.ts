@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
     this.authService.userLoginEvent.subscribe((success) => {
       this.isLoggedIn = success;
-      if (success) {
+      if (success && this.isUserRegistered == false) {
         this.getRegistration();
       }
     });
