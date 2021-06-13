@@ -36,7 +36,10 @@ export const environment = {
       },
       url: {
         project: 'https://localhost:5000/api/v1.0/projects',
-        user: 'https://localhost:5000/api/v1.0/users',
+        user: {
+          all: 'https://localhost:5000/api/v1.0/users',
+          registration: 'https://localhost:5000/api/v1.0/users/registration',
+        },
         table: 'https://localhost:5000/api/v1.0/tables',
         column: 'https://localhost:5000/api/v1.0/columns',
         task: 'https://localhost:5000/api/v1.0/tasks',
