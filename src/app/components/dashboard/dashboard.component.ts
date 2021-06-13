@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  user: User = { id: '', name: '' };
+  user: User | undefined;
   projects: Project[] = [];
   userProjects: Project[] = [];
   isLoggedIn = false;
@@ -70,9 +70,11 @@ export class DashboardComponent implements OnInit {
   private getProjects(): void {
     this.projectService.getProjects().subscribe((p) => {
       this.projects = p;
-      this.userProjects = this.projects.filter((project) =>
-        project.users.find((u) => u.id === this.user.id)
-      );
+      if (this.user) {
+        this.userProjects = this.projects.filter((project) =>
+          project.users.find((u) => u.id === this.user?.id)
+        );
+      }
     });
   }
 

@@ -1,5 +1,6 @@
 <div *ngIf="isLoggedIn; else homePage" class="wrapper mat-app-background">
-  <h1>Welcome, {{ user.name }}!</h1>
+  <h1 *ngIf="user; else noNameWelcome">Welcome, {{ user.name }}!</h1>
+  <ng-template #noNameWelcome><h1>Welcome</h1></ng-template>
   <section class="server-status" *ngIf="serverStatus">
     <h3>Server status:</h3>
     <h4 [class]="serverStatus">{{ serverStatus }}</h4>
