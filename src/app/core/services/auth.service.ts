@@ -13,8 +13,6 @@ export class AuthService {
       .loadDiscoveryDocumentAndLogin()
       .then((success) => this.userLoginEvent.emit(success));
 
-    // this.oauthService.setupAutomaticSilentRefresh();
-
     // Automatically load user profile
     this.oauthService.events
       .pipe(filter((e) => e.type === 'token_received'))
@@ -27,8 +25,6 @@ export class AuthService {
 
   public userLoginEvent = new EventEmitter<boolean>();
   public userLoadProfileEvent = new EventEmitter<void>();
-
-  public init(): void {}
 
   public get userName(): string | undefined {
     const claims: any = this.oauthService.getIdentityClaims();
