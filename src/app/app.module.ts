@@ -69,7 +69,10 @@ import { SearchComponent } from './components/search/search.component';
     MatDividerModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:5000/api'],
+        allowedUrls: [
+          'https://localhost:5000/api',
+          'http://localhost:5001/api',
+        ],
         sendAccessToken: true,
       },
     }),

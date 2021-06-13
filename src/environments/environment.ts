@@ -9,7 +9,7 @@ export const environment = {
       dashboard: 'http://localhost:4200/dashboard',
     },
   },
-  server: { health: 'http://localhost:5000/health' },
+  server: { health: 'http://localhost:5001/health' },
   api: {
     v1: {
       cache: {
@@ -35,12 +35,12 @@ export const environment = {
         },
       },
       url: {
-        project: 'http://localhost:5000/api/v1.0/projects',
-        user: 'http://localhost:5000/api/v1.0/users',
-        table: 'http://localhost:5000/api/v1.0/tables',
-        column: 'http://localhost:5000/api/v1.0/columns',
-        task: 'http://localhost:5000/api/v1.0/tasks',
-        comment: 'http://localhost:5000/api/v1.0/comments',
+        project: 'https://localhost:5000/api/v1.0/projects',
+        user: 'https://localhost:5000/api/v1.0/users',
+        table: 'https://localhost:5000/api/v1.0/tables',
+        column: 'https://localhost:5000/api/v1.0/columns',
+        task: 'https://localhost:5000/api/v1.0/tasks',
+        comment: 'https://localhost:5000/api/v1.0/comments',
       },
     },
     v1_1: {
@@ -51,7 +51,7 @@ export const environment = {
         },
       },
       url: {
-        project: 'http://localhost:5000/api/v1.1/projects',
+        project: 'https://localhost:5000/api/v1.1/projects',
       },
     },
   },
