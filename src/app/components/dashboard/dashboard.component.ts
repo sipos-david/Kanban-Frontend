@@ -10,6 +10,8 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ProjectAddDialogComponent } from '../dialogs/project-add-dialog/project-add-dialog.component';
 import { ProjectAddDialogData } from '../dialogs/project-add-dialog/project-add-dialog.model';
+import { UserConsentDialogComponent } from '../dialogs/user-consent-dialog/user-consent-dialog.component';
+import { UserConsentData } from '../dialogs/user-consent-dialog/user-consent.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,27 +34,57 @@ export class DashboardComponent implements OnInit {
   userProjects: Project[] = [];
   isLoggedIn = false;
   isSearchEnabled = false;
+  isUserRegistered = false;
   serverStatus: string | undefined;
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn;
     if (this.isLoggedIn) {
-      this.getData();
+      this.getRegistration();
     }
 
     this.authService.userLoginEvent.subscribe((success) => {
       this.isLoggedIn = success;
       if (success) {
-        this.getProjects();
+        this.getRegistration();
       }
     });
-    this.authService.userLoadProfileEvent.subscribe(() => this.getData());
 
     this.isSearchEnabled = this.settingsService.searchEnabled;
     this.settingsService.searchEnabledChangeEvent.subscribe(
       (isSearchEnabled) => (this.isSearchEnabled = isSearchEnabled)
     );
+  }
 
+  private getRegistration(): void {
+    this.userService.getRegistration().subscribe((isUserRegistered) => {
+      this.isUserRegistered = isUserRegistered;
+      if (!isUserRegistered) {
+        this.registerUser();
+      } else {
+        this.getData();
+      }
+    });
+  }
+
+  private registerUser(): void {
+    const data = new UserConsentData();
+    const dialogRef = this.dialog.open(UserConsentDialogComponent, {
+      data,
+    });
+    dialogRef.afterClosed().subscribe((result: UserConsentData) => {
+      if (result && result.accept === true) {
+        this.userService.registerUser().subscribe(() => {
+          this.isUserRegistered = true;
+          this.getData();
+        });
+      } else {
+        this.authService.logoutUser();
+      }
+    });
+  }
+
+  private getApiHealth() {
     this.healthService
       .getApiHealth()
       .subscribe((health) => (this.serverStatus = health));
@@ -63,8 +95,11 @@ export class DashboardComponent implements OnInit {
   }
 
   private getData(): void {
-    this.getUser();
-    this.getProjects();
+    if (this.isLoggedIn && this.isUserRegistered) {
+      this.getUser();
+      this.getProjects();
+      this.getApiHealth();
+    }
   }
 
   private getProjects(): void {

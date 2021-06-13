@@ -1,4 +1,7 @@
-<div *ngIf="isLoggedIn; else homePage" class="wrapper mat-app-background">
+<div
+  *ngIf="isLoggedIn === true && isUserRegistered === true; else homePage"
+  class="wrapper mat-app-background"
+>
   <h1 *ngIf="user; else noNameWelcome">Welcome, {{ user.name }}!</h1>
   <ng-template #noNameWelcome><h1>Welcome</h1></ng-template>
   <section class="server-status" *ngIf="serverStatus">
