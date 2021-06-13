@@ -18,7 +18,16 @@ export class ProjectAddDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ProjectAddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectAddDialogData
-  ) {}
+  ) {
+    if (data.currentUser) {
+      const currentUserIndex = data.users.findIndex(
+        (u) => u.id === data.currentUser?.id
+      );
+      if (currentUserIndex > -1) {
+        data.project?.users.push(data.currentUser);
+      }
+    }
+  }
 
   visible = true;
   selectable = true;
@@ -31,7 +40,7 @@ export class ProjectAddDialogComponent {
   }
 
   public add(event: MatChipInputEvent): void {
-    const input = event.input;
+    const input = event.chipInput?.inputElement;
     if (event.value) {
       const value = event.value.trim();
       const user = this.data.users.find((u) => u.name === value);

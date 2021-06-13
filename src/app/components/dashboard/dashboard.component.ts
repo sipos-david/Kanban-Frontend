@@ -86,7 +86,8 @@ export class DashboardComponent implements OnInit {
 
   public onAddProject(): void {
     const data = new ProjectAddDialogData();
-    data.project = { id: undefined, name: '', users: [this.user], tables: [] };
+    data.project = { id: undefined, name: '', users: [], tables: [] };
+    data.currentUser = this.user;
     this.userService.getUsers().subscribe((users) => {
       data.users = users;
       const dialogRef = this.dialog.open(ProjectAddDialogComponent, {

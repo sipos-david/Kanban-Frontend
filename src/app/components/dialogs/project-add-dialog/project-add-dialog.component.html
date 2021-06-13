@@ -5,7 +5,10 @@
       <mat-label>New project's name</mat-label>
       <input matInput [(ngModel)]="data.project.name" />
     </mat-form-field>
-    <mat-form-field class="chip-list" *ngIf="data.users.length > 0">
+    <mat-form-field
+      class="chip-list"
+      *ngIf="data.users.length > 0; else noUsersAvailable"
+    >
       <mat-label>Added users</mat-label>
       <mat-chip-list #chipList aria-label="User selection">
         <mat-chip
@@ -26,6 +29,7 @@
         />
       </mat-chip-list>
     </mat-form-field>
+    <ng-template #noUsersAvailable> No users available </ng-template>
   </div>
   <ng-template #noInput> ERROR: project wasn't provided </ng-template>
 </div>
