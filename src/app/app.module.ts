@@ -31,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AddTaskDialogComponent } from './components/dialogs/add-task-dialog/add-task-dialog.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { SearchComponent } from './components/search/search.component';
+import { UserConsentDialogComponent } from './components/dialogs/user-consent-dialog/user-consent-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SearchComponent } from './components/search/search.component';
     AddTaskDialogComponent,
     CommentComponent,
     SearchComponent,
+    UserConsentDialogComponent,
   ],
   imports: [
     BrowserModule,

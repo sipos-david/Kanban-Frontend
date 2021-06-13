@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Registration</h1>
+<div mat-dialog-content>
+  <h3>Would you like to register to Kanban Board?</h3>
+  If you register you accept the
+  <a
+    mat-button
+    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO"
+    >terms of service</a
+  >.
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">DECLINE</button>
+  <button mat-button color="accent" [mat-dialog-close]="data">ACCEPT</button>
+</div>
